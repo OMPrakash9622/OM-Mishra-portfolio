@@ -1,0 +1,2642 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <link rel="icon" href="/op-logo.jpg" type="image/jpg">
+  <title>Om Prakash Mishra | Portfolio</title>
+  <script src="https://cdn.tailwindcss.com"></script>
+  <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
+  <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/devicons/devicon@v2.15.1/devicon.min.css">
+  <style>
+    :root {
+      --github-bg: #0d1117;
+      --github-border: #30363d;
+      --github-text: #c9d1d9;
+      --github-accent: #58a6ff;
+      --github-card: #161b22;
+    }
+    
+    [data-theme="light"] {
+      --github-bg: #ffffff;
+      --github-border: #d0d7de;
+      --github-text: #24292f;
+      --github-accent: #0969da;
+      --github-card: #f6f8fa;
+    }
+    
+    body {
+      background-color: var(--github-bg);
+      color: var(--github-text);
+      font-family: 'SFMono-Regular', Consolas, 'Liberation Mono', Menlo, monospace;
+      transition: background-color 0.3s, color 0.3s;
+    }
+    
+    /* GitHub-like scrollbar */
+    ::-webkit-scrollbar {
+      width: 12px;
+    }
+    
+    ::-webkit-scrollbar-track {
+      background: var(--github-card);
+    }
+    
+    ::-webkit-scrollbar-thumb {
+      background: var(--github-border);
+      border-radius: 6px;
+      border: 3px solid var(--github-card);
+    }
+    
+    /* GitHub header style */
+    .github-header {
+      border-bottom: 1px solid var(--github-border);
+      background-color: var(--github-bg);
+    }
+    
+    .github-tab {
+      padding: 8px 16px;
+      border: 1px solid transparent;
+      border-bottom: none;
+      border-radius: 6px 6px 0 0;
+      position: relative;
+      bottom: -1px;
+    }
+    
+    .github-tab:hover {
+      background-color: var(--github-card);
+      border-color: var(--github-border);
+    }
+    
+    .github-tab.active {
+      background-color: var(--github-card);
+      border-color: var(--github-border);
+      color: var(--github-accent);
+      font-weight: 600;
+    }
+    
+    /* GitHub footer */
+    .github-footer {
+      border-top: 1px solid var(--github-border);
+      background-color: var(--github-bg);
+    }
+    
+    /* GitHub readme style */
+    .github-readme {
+      background-color: var(--github-card);
+      border: 1px solid var(--github-border);
+      border-radius: 6px;
+    }
+    
+    .github-readme-header {
+      background-color: var(--github-bg);
+      border-bottom: 1px solid var(--github-border);
+    }
+    
+    /* Animations */
+    @keyframes float {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-10px); }
+    }
+    
+    @keyframes glitch {
+      0% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75); }
+      14% { text-shadow: 0.05em 0 0 rgba(255,0,0,0.75), -0.05em -0.025em 0 rgba(0,255,0,0.75), -0.025em 0.05em 0 rgba(0,0,255,0.75); }
+      15% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
+      49% { text-shadow: -0.05em -0.025em 0 rgba(255,0,0,0.75), 0.025em 0.025em 0 rgba(0,255,0,0.75), -0.05em -0.05em 0 rgba(0,0,255,0.75); }
+      50% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
+      99% { text-shadow: 0.025em 0.05em 0 rgba(255,0,0,0.75), 0.05em 0 0 rgba(0,255,0,0.75), 0 -0.05em 0 rgba(0,0,255,0.75); }
+      100% { text-shadow: -0.025em 0 0 rgba(255,0,0,0.75), -0.025em -0.025em 0 rgba(0,255,0,0.75), -0.025em -0.05em 0 rgba(0,0,255,0.75); }
+    }
+    
+    @keyframes marquee {
+      0% { transform: translateX(100%); }
+      100% { transform: translateX(-100%); }
+    }
+    
+    @keyframes pulse {
+      0%, 100% { transform: scale(1); opacity: 1; }
+      50% { transform: scale(1.05); opacity: 0.8; }
+    }
+    
+    @keyframes rotate {
+      0% { transform: rotate(0deg); }
+      100% { transform: rotate(360deg); }
+    }
+    
+    @keyframes slideIn {
+      from { transform: translateY(50px); opacity: 0; }
+      to { transform: translateY(0); opacity: 1; }
+    }
+    
+    @keyframes glow {
+      0% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+      50% { box-shadow: 0 0 20px rgba(59, 130, 246, 0.8); }
+      100% { box-shadow: 0 0 5px rgba(59, 130, 246, 0.5); }
+    }
+    
+    @keyframes borderGlow {
+      0% { border-color: rgba(59, 130, 246, 0.3); }
+      50% { border-color: rgba(59, 130, 246, 0.8); }
+      100% { border-color: rgba(59, 130, 246, 0.3); }
+    }
+    
+    @keyframes rain {
+      0% { transform: translateY(-100%) rotate(10deg); }
+      100% { transform: translateY(100vh) rotate(10deg); }
+    }
+    
+    @keyframes cloudMove {
+      0% { transform: translateX(-100%); }
+      100% { transform: translateX(100vw); }
+    }
+    
+    @keyframes sunGlow {
+      0%, 100% { box-shadow: 0 0 20px 10px rgba(255, 204, 0, 0.3); }
+      50% { box-shadow: 0 0 40px 20px rgba(255, 204, 0, 0.5); }
+    }
+    
+    @keyframes snow {
+      0% { transform: translateY(-100%) rotate(0deg); opacity: 1; }
+      100% { transform: translateY(100vh) rotate(360deg); opacity: 0.5; }
+    }
+    
+    @keyframes lightning {
+      0%, 80%, 100% { opacity: 0; }
+      85%, 95% { opacity: 1; }
+    }
+    
+    @keyframes floatUpDown {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-20px); }
+    }
+    
+    @keyframes techPulse {
+      0%, 100% { transform: scale(1); opacity: 0.8; }
+      50% { transform: scale(1.1); opacity: 1; }
+    }
+    
+    @keyframes techRotate {
+      0% { transform: rotate(0deg) scale(1); }
+      50% { transform: rotate(180deg) scale(1.2); }
+      100% { transform: rotate(360deg) scale(1); }
+    }
+    
+    @keyframes testimonialScroll {
+      0% { transform: translateX(0); }
+      100% { transform: translateX(calc(-100% - 2rem)); }
+    }
+    
+    .glitch-text {
+      animation: glitch 500ms infinite;
+    }
+    
+    .floating {
+      animation: float 3s ease-in-out infinite;
+    }
+    
+    .pulse {
+      animation: pulse 2s ease-in-out infinite;
+    }
+    
+    .rotate {
+      animation: rotate 10s linear infinite;
+    }
+    
+    .slide-in {
+      animation: slideIn 0.5s ease-out forwards;
+    }
+    
+    .glow {
+      animation: glow 2s ease-in-out infinite;
+    }
+    
+    .border-glow {
+      animation: borderGlow 3s ease-in-out infinite;
+    }
+    
+    .marquee-container {
+      overflow: hidden;
+      white-space: nowrap;
+      position: relative;
+    }
+    
+    .marquee {
+      display: inline-block;
+      animation: marquee 20s linear infinite;
+    }
+    
+    .marquee:hover {
+      animation-play-state: paused;
+    }
+    
+    /* Project card flip */
+    .project-card {
+      perspective: 1000px;
+      height: 300px;
+    }
+    
+    .project-card-inner {
+      position: relative;
+      width: 100%;
+      height: 100%;
+      transition: transform 0.6s;
+      transform-style: preserve-3d;
+    }
+    
+    .project-card:hover .project-card-inner {
+      transform: rotateY(180deg);
+    }
+    
+    .project-card-front, .project-card-back {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      backface-visibility: hidden;
+      border-radius: 8px;
+      overflow: hidden;
+    }
+    
+    .project-card-back {
+      transform: rotateY(180deg);
+      background-color: var(--github-card);
+      border: 1px solid var(--github-border);
+      padding: 20px;
+    }
+    
+    /* Modal */
+    .modal {
+      display: none;
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(0,0,0,0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+    }
+    
+    .modal.active {
+      display: flex;
+    }
+    
+    .modal-content {
+      background-color: var(--github-card);
+      border: 1px solid var(--github-border);
+      border-radius: 6px;
+      max-width: 800px;
+      width: 90%;
+      max-height: 90vh;
+      overflow-y: auto;
+    }
+    
+    /* Terminal footer */
+    .terminal-footer {
+      background-color: var(--github-card);
+      border-top: 1px solid var(--github-border);
+      font-family: monospace;
+    }
+    
+    /* Terminal styles */
+    .terminal-body {
+      background: 
+        radial-gradient(circle at center, rgba(59, 130, 246, 0.05) 0%, transparent 70%),
+        linear-gradient(to bottom, rgba(0,0,0,0.9) 0%, rgba(0,0,0,0.8) 100%);
+    }
+    .terminal-input::placeholder {
+      color: #4d4d4d;
+      font-family: monospace;
+    }
+    .terminal-cursor {
+      animation: blink 1s step-end infinite;
+    }
+    @keyframes blink {
+      from, to { opacity: 1; }
+      50% { opacity: 0; }
+    }
+    
+    /* Testimonial styles */
+    .testimonial-card {
+      background: linear-gradient(145deg, rgba(30,41,59,0.8) 0%, rgba(15,23,42,0.9) 100%);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      transition: all 0.3s ease;
+      transform-style: preserve-3d;
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+    }
+    
+    .testimonial-card:hover {
+      transform: translateY(-10px) scale(1.02);
+      box-shadow: 0 15px 40px -10px rgba(0,0,0,0.4);
+      border-color: rgba(59, 130, 246, 0.5);
+    }
+    
+    .testimonial-card::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      border-radius: 16px;
+      padding: 2px;
+      background: linear-gradient(135deg, rgba(59,130,246,0.5) 0%, rgba(124,58,237,0.5) 100%);
+      -webkit-mask: linear-gradient(#fff 0 0) content-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+      pointer-events: none;
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
+    
+    .testimonial-card:hover::before {
+      opacity: 1;
+    }
+    
+    .profile-pic {
+      width: 60px;
+      height: 60px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 3px solid rgba(59, 130, 246, 0.5);
+      box-shadow: 0 0 20px rgba(59, 130, 246, 0.3);
+      transition: all 0.3s ease;
+    }
+    
+    .testimonial-card:hover .profile-pic {
+      transform: scale(1.1);
+      box-shadow: 0 0 30px rgba(59, 130, 246, 0.5);
+    }
+    
+    .star-rating {
+      color: #fbbf24;
+    }
+    
+    /* Samsung-style Weather Widget */
+    .oneui-weather-widget {
+      position: fixed;
+      top: 79px;
+      left: 50%;
+      transform: translateX(-50%);
+      background: rgba(255, 255, 255, 0.15);
+      backdrop-filter: blur(20px);
+      -webkit-backdrop-filter: blur(20px);
+      border-radius: 24px;
+      padding: 10px 20px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      z-index: 90;
+      display: flex;
+      align-items: center;
+      gap: 16px;
+      transition: all 0.3s ease;
+      max-width: 90%;
+      color: white;
+      font-family: 'SamsungOne', -apple-system, BlinkMacSystemFont, sans-serif;
+    }
+
+    .oneui-weather-widget.hidden {
+      transform: translateX(-50%) translateY(-100px);
+      opacity: 0;
+      pointer-events: none;
+    }
+
+    .oneui-weather-nav-integrated {
+      position: relative;
+      display: flex;
+      align-items: center;
+      margin-left: auto;
+      padding: 0 10px;
+    }
+
+    .oneui-weather-nav-content {
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      background: rgba(255, 255, 255, 0.1);
+      backdrop-filter: blur(5px);
+      border-radius: 20px;
+      padding: 5px 10px;
+      border: 1px solid rgba(255, 255, 255, 0.1);
+    }
+
+    .oneui-weather-nav-icon {
+      font-size: 1rem;
+      width: 24px;
+      height: 24px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .oneui-weather-nav-temp {
+      font-size: 0.9rem;
+      font-weight: 600;
+      white-space: nowrap;
+    }
+
+    .oneui-weather-widget:hover {
+      transform: translateX(-50%) translateY(-5px);
+      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
+    }
+
+    .oneui-weather-icon-container {
+      position: relative;
+      width: 64px;
+      height: 64px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+
+    .oneui-weather-icon {
+      font-size: 3rem;
+      transition: all 0.5s ease;
+      z-index: 2;
+      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    }
+
+    /* One UI specific weather animations */
+    .oneui-sunny {
+      color: #FFC107;
+      animation: oneui-sunRotate 60s linear infinite;
+    }
+
+    .oneui-cloudy {
+      color: #E0E0E0;
+      animation: oneui-cloudFloat 8s ease-in-out infinite;
+    }
+
+    .oneui-rainy {
+      color: #64B5F6;
+      animation: oneui-rainBounce 3s ease-in-out infinite;
+    }
+
+    .oneui-thunderstorm {
+      color: #9FA8DA;
+      animation: oneui-lightning 8s infinite;
+    }
+
+    .oneui-snow {
+      color: #E0F7FA;
+      animation: oneui-snowFloat 6s ease-in-out infinite;
+    }
+
+    .oneui-fog {
+      color: #B0BEC5;
+      animation: oneui-fogPulse 10s ease-in-out infinite;
+    }
+
+    .oneui-partly-cloudy {
+      color: #BDBDBD;
+      animation: oneui-cloudSunFloat 10s ease-in-out infinite;
+    }
+
+    .oneui-weather-bg {
+      position: absolute;
+      width: 100%;
+      height: 100%;
+      border-radius: 50%;
+      z-index: 1;
+      opacity: 0.2;
+    }
+
+    .oneui-sunny-bg {
+      background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, transparent 70%);
+      animation: oneui-sunPulse 4s infinite alternate;
+    }
+
+    .oneui-cloudy-bg {
+      background: radial-gradient(circle, rgba(224, 224, 224, 0.2) 0%, transparent 70%);
+    }
+
+    .oneui-rainy-bg {
+      background: radial-gradient(circle, rgba(100, 181, 246, 0.2) 0%, transparent 70%);
+    }
+
+    .oneui-thunderstorm-bg {
+      background: radial-gradient(circle, rgba(159, 168, 218, 0.2) 0%, transparent 70%);
+    }
+
+    .oneui-snow-bg {
+      background: radial-gradient(circle, rgba(224, 247, 250, 0.2) 0%, transparent 70%);
+    }
+
+    .oneui-fog-bg {
+      background: radial-gradient(circle, rgba(176, 190, 197, 0.2) 0%, transparent 70%);
+    }
+
+    .oneui-partly-cloudy-bg {
+      background: radial-gradient(circle, rgba(189, 189, 189, 0.2) 0%, transparent 70%);
+    }
+
+    /* One UI specific animations */
+    @keyframes oneui-sunRotate {
+      from { transform: rotate(0deg); }
+      to { transform: rotate(360deg); }
+    }
+
+    @keyframes oneui-sunPulse {
+      0% { transform: scale(1); opacity: 0.2; }
+      50% { transform: scale(1.1); opacity: 0.3; }
+      100% { transform: scale(1); opacity: 0.2; }
+    }
+
+    @keyframes oneui-cloudFloat {
+      0%, 100% { transform: translateY(0) translateX(0); }
+      50% { transform: translateY(-5px) translateX(5px); }
+    }
+
+    @keyframes oneui-cloudSunFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-3px) rotate(2deg); }
+      50% { transform: translateY(0) rotate(0deg); }
+      75% { transform: translateY(-3px) rotate(-2deg); }
+    }
+
+    @keyframes oneui-rainBounce {
+      0%, 100% { transform: translateY(0); }
+      50% { transform: translateY(-4px); }
+    }
+
+    @keyframes oneui-lightning {
+      0%, 70%, 100% { opacity: 0.8; }
+      75%, 85% { opacity: 1; }
+    }
+
+    @keyframes oneui-snowFloat {
+      0%, 100% { transform: translateY(0) rotate(0deg); }
+      25% { transform: translateY(-4px) rotate(5deg); }
+      50% { transform: translateY(0) rotate(0deg); }
+      75% { transform: translateY(-4px) rotate(-5deg); }
+    }
+
+    @keyframes oneui-fogPulse {
+      0%, 100% { opacity: 0.2; }
+      50% { opacity: 0.3; }
+    }
+
+    .oneui-weather-info {
+      display: flex;
+      flex-direction: column;
+      min-width: 120px;
+    }
+
+    .oneui-weather-temp {
+      font-size: 24px;
+      font-weight: 700;
+      line-height: 1.2;
+    }
+
+    .oneui-weather-location {
+      font-size: 14px;
+      font-weight: 500;
+      opacity: 0.9;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 150px;
+    }
+
+    .oneui-weather-time {
+      font-size: 14px;
+      font-weight: 400;
+      opacity: 0.8;
+      margin-left: 16px;
+      white-space: nowrap;
+    }
+
+    .oneui-weather-additional {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      margin-top: 4px;
+    }
+
+    .oneui-weather-humidity,
+    .oneui-weather-wind {
+      display: flex;
+      align-items: center;
+      gap: 4px;
+      opacity: 0.8;
+    }
+
+    /* Loading state */
+    .oneui-weather-loading {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .oneui-weather-loading-spinner {
+      width: 24px;
+      height: 24px;
+      border: 3px solid rgba(255, 255, 255, 0.2);
+      border-top-color: white;
+      border-radius: 50%;
+      animation: oneui-spin 1s linear infinite;
+    }
+
+    @keyframes oneui-spin {
+      to { transform: rotate(360deg); }
+    }
+
+    /* Error state */
+    .oneui-weather-error {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      color: #FF6B6B;
+    }
+
+    /* Resume section */
+    .resume-card {
+      background: linear-gradient(145deg, rgba(30,41,59,0.9) 0%, rgba(15,23,42,0.95) 100%);
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      border: 1px solid rgba(255,255,255,0.1);
+      box-shadow: 0 10px 30px -10px rgba(0,0,0,0.3);
+      transition: all 0.3s ease;
+      position: relative;
+      overflow: hidden;
+    }
+    
+    .resume-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 15px 40px -10px rgba(0,0,0,0.4);
+    }
+    
+    .resume-card::before {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(
+        to bottom right,
+        transparent 0%,
+        rgba(59, 130, 246, 0.1) 50%,
+        transparent 100%
+      );
+      transform: rotate(45deg);
+      animation: shine 3s infinite;
+    }
+    
+    @keyframes shine {
+      0% { left: -50%; top: -50%; }
+      100% { left: 150%; top: 150%; }
+    }
+    
+    .download-btn {
+      position: relative;
+      overflow: hidden;
+      transition: all 0.3s ease;
+      background: linear-gradient(135deg, rgba(59,130,246,0.8) 0%, rgba(124,58,237,0.8) 100%);
+      box-shadow: 0 4px 15px rgba(59, 130, 246, 0.3);
+    }
+    
+    .download-btn:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 8px 25px rgba(59, 130, 246, 0.4);
+    }
+    
+    .download-btn::after {
+      content: '';
+      position: absolute;
+      top: -50%;
+      left: -50%;
+      width: 200%;
+      height: 200%;
+      background: linear-gradient(transparent, rgba(255,255,255,0.1), transparent);
+      transform: rotate(45deg);
+      transition: all 0.6s ease;
+    }
+    
+    .download-btn:hover::after {
+      left: 100%;
+      top: 100%;
+    }
+    
+    /* Toast notification */
+    .toast {
+      position: fixed;
+      bottom: 30px;
+      left: 50%;
+      transform: translateX(-50%) translateY(100px);
+      background: rgba(15, 23, 42, 0.95);
+      backdrop-filter: blur(10px);
+      color: white;
+      padding: 12px 24px;
+      border-radius: 8px;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.3);
+      border: 1px solid rgba(59, 130, 246, 0.5);
+      z-index: 1000;
+      opacity: 0;
+      transition: all 0.3s ease;
+    }
+    
+    .toast.show {
+      transform: translateX(-50%) translateY(0);
+      opacity: 1;
+    }
+    
+    /* Skills Section */
+   @keyframes float {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(-10px); }
+}
+
+.animate-float {
+  animation: float 4s ease-in-out infinite;
+}
+
+/* Keep your existing hover effects */
+.skill-item:hover {
+  transform: scale(1.1);
+  filter: drop-shadow(0 0 8px rgba(59, 130, 246, 0.5));
+}
+    
+    /* Testimonial Carousel */
+    .testimonial-carousel {
+      display: flex;
+      gap: 2rem;
+      animation: testimonialScroll 30s linear infinite;
+      width: max-content;
+    }
+    
+    .testimonial-carousel:hover {
+      animation-play-state: paused;
+    }
+    
+    .testimonial-wrapper {
+      overflow: hidden;
+      position: relative;
+    }
+    
+    .testimonial-wrapper::before,
+    .testimonial-wrapper::after {
+      content: '';
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 100px;
+      z-index: 2;
+      pointer-events: none;
+    }
+    
+    .testimonial-wrapper::before {
+      left: 0;
+      background: linear-gradient(to right, var(--github-bg), transparent);
+    }
+    
+    .testimonial-wrapper::after {
+      right: 0;
+      background: linear-gradient(to left, var(--github-bg), transparent);
+    }
+    
+    /* Mobile Weather Widget */
+    .mobile-weather-widget {
+      position: sticky;
+      top: 60px;
+      z-index: 80;
+      width: 100%;
+      padding: 10px 15px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
+    }
+    
+    .mobile-weather-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    
+    .mobile-weather-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-weather-temp {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .mobile-weather-location {
+      font-size: 0.9rem;
+      opacity: 0.8;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 120px;
+    }
+    
+    .mobile-weather-right {
+      display: flex;
+      align-items: center;
+      gap: 15px;
+    }
+    
+    .mobile-weather-detail {
+      display: flex;
+      align-items: center;
+      gap: 5px;
+      font-size: 0.8rem;
+    }
+    
+    .mobile-weather-detail i {
+      font-size: 0.9rem;
+    }
+    
+    /* Responsive adjustments */
+    @media (max-width: 1024px) {
+      .oneui-weather-widget {
+        top: 80px;
+        padding: 14px 20px;
+      }
+      
+      .oneui-weather-icon-container {
+        width: 56px;
+        height: 56px;
+      }
+      
+      .oneui-weather-icon {
+        font-size: 2.5rem;
+      }
+      
+      .oneui-weather-temp {
+        font-size: 22px;
+      }
+      
+      .oneui-weather-location {
+        font-size: 13px;
+        max-width: 130px;
+      }
+    }
+    
+    @media (max-width: 768px) {
+      .github-tabs {
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 8px;
+        -webkit-overflow-scrolling: touch;
+      }
+      
+      .github-tab {
+        display: inline-block;
+        font-size: 0.9rem;
+        padding: 6px 12px;
+      }
+      
+      .hero-content {
+        flex-direction: column;
+        text-align: center;
+        padding-top: 2rem;
+      }
+      
+      .hero-text {
+        margin-top: 2rem;
+        padding: 0 1rem;
+      }
+      
+      .hero-text h1 {
+        font-size: 2.5rem;
+      }
+      
+      .oneui-weather-widget {
+        display: none;
+      }
+      
+      .oneui-weather-icon-container {
+        width: 48px;
+        height: 48px;
+      }
+      
+      .oneui-weather-icon {
+        font-size: 2rem;
+      }
+      
+      .oneui-weather-temp {
+        font-size: 20px;
+      }
+      
+      .oneui-weather-location {
+        font-size: 12px;
+        max-width: 100px;
+      }
+      
+      .oneui-weather-time {
+        font-size: 12px;
+        margin-left: 8px;
+      }
+
+      .testimonial-grid {
+        grid-template-columns: 1fr;
+      }
+      
+      .skill-icon {
+        width: 50px;
+        height: 50px;
+      }
+      
+      .project-card {
+        height: auto;
+        margin-bottom: 2rem;
+      }
+      
+      .project-card-inner {
+        height: auto;
+        min-height: 300px;
+      }
+      
+      .project-card-front, .project-card-back {
+        position: relative;
+        height: auto;
+      }
+      
+      .project-card:hover .project-card-inner {
+        transform: none;
+      }
+      
+      .project-card-back {
+        transform: none;
+        display: none;
+      }
+      
+      .resume-card {
+        padding: 1.5rem;
+      }
+      
+      .download-btn, .copy-email-btn {
+        width: 100%;
+        margin-bottom: 0.5rem;
+      }
+    }
+    
+    @media (max-width: 480px) {
+      .github-header {
+        padding: 0.5rem;
+        display: flex;
+        align-items: center;
+      }
+      
+      .github-tabs {
+        max-width: 100%;
+        display: none;
+      }
+      
+      .hero-text h1 {
+        font-size: 2rem;
+      }
+      
+      .hero-text p {
+        font-size: 1rem;
+      }
+      
+      .terminal {
+        width: 100%;
+        max-width: 100%;
+      }
+      
+      .mobile-weather-widget {
+        top: 56px;
+        padding: 8px 12px;
+      }
+      
+      .mobile-weather-icon {
+        font-size: 1.2rem;
+        width: 36px;
+        height: 36px;
+      }
+      
+      .mobile-weather-temp {
+        font-size: 1rem;
+      }
+      
+      .mobile-weather-location {
+        font-size: 0.8rem;
+        max-width: 100px;
+      }
+      
+      .mobile-weather-right {
+        gap: 10px;
+      }
+      
+      .mobile-weather-detail {
+        font-size: 0.7rem;
+      }
+      
+      .mobile-weather-detail i {
+        font-size: 0.8rem;
+      }
+      
+      .testimonial-card {
+        width: 280px;
+      }
+      
+      .contact-form {
+        padding: 1rem;
+      }
+      
+      .github-footer {
+        text-align: center;
+      }
+      
+      .social-icons {
+        justify-content: center;
+        margin-top: 1rem;
+      }
+    }
+
+    /* Mobile menu for small screens */
+    @media (max-width: 640px) {
+      .mobile-menu-button {
+        display: block;
+        order: 1;
+      }
+      
+      .mobile-menu {
+        position: fixed;
+        top: 60px;
+        left: 0;
+        right: 0;
+        background-color: var(--github-bg);
+        border-bottom: 1px solid var(--github-border);
+        z-index: 90;
+        padding: 1rem;
+        display: flex;
+        flex-direction: column;
+      }
+      
+      .mobile-menu .github-tab {
+        display: block;
+        margin-bottom: 0.5rem;
+      }
+    }
+  </style>
+</head>
+<body>
+  <div id="root"></div>
+  
+  <!-- Modal container for project details -->
+  <div id="modal" class="modal">
+    <div class="modal-content p-6">
+      <div class="flex justify-between items-center mb-4">
+        <h3 class="text-xl font-semibold" id="modal-title">Project Details</h3>
+        <button id="close-modal" class="text-xl">&times;</button>
+      </div>
+      <div id="modal-content"></div>
+    </div>
+  </div>
+
+  <!-- Toast notification -->
+  <div id="toast" class="toast"></div>
+
+  <script type="text/babel">
+    // Terminal Command Handler
+    function setupTerminal() {
+      // Typewriter effect for initial messages
+      const typewriters = document.querySelectorAll('.typewriter');
+      typewriters.forEach((el, i) => {
+        const text = el.textContent;
+        el.textContent = '';
+        setTimeout(() => {
+          let j = 0;
+          const typing = setInterval(() => {
+            if (j < text.length) {
+              el.textContent += text[j];
+              j++;
+            } else {
+              clearInterval(typing);
+            }
+          }, 30);
+        }, i * 1500);
+      });
+      
+      // Terminal command handler
+      function handleTerminalCommand(command) {
+        const history = document.getElementById('terminal-history');
+        const output = document.createElement('div');
+        output.className = 'mb-2';
+        
+        // Add command to history
+        const commandLine = document.createElement('div');
+        commandLine.className = 'text-green-400';
+        commandLine.innerHTML = '➜ <span class="text-blue-400">portfolio</span> git:(<span class="text-yellow-400">main</span>)<br>$ <span class="text-white">' + command + '</span>';
+        history.appendChild(commandLine);
+        
+        // Process command
+        if (command === 'help') {
+          output.innerHTML = [
+            '<div class="text-white">Available commands:</div>',
+            '<div class="ml-4">- help: Show this help</div>',
+            '<div class="ml-4">- clear: Clear terminal</div>',
+            '<div class="ml-4">- cd [section]: Navigate to section</div>',
+            '<div class="ml-4">- ls: List available sections</div>',
+            '<div class="ml-4">- whoami: Show basic info</div>'
+          ].join('');
+        } 
+        else if (command === 'clear') {
+          history.innerHTML = '';
+          return;
+        }
+        else if (command === 'ls') {
+          output.innerHTML = [
+            '<div class="text-white">Available sections:</div>',
+            '<div class="ml-4 text-blue-400">about</div>',
+            '<div class="ml-4 text-blue-400">projects</div>',
+            '<div class="ml-4 text-blue-400">skills</div>',
+            '<div class="ml-4 text-blue-400">contact</div>'
+          ].join('');
+        }
+        else if (command === 'whoami') {
+          output.innerHTML = [
+            '<div class="text-white">Om Prakash Mishra</div>',
+            '<div class="text-white">Software Developer</div>',
+            '<div class="text-white">Location: India</div>',
+            '<div class="text-white">GitHub: OMPrakash9622</div>'
+          ].join('');
+        }
+        else if (command.startsWith('cd ')) {
+          const section = command.substring(3).trim();
+          const validSections = ['about', 'projects', 'skills', 'contact'];
+          
+          if (validSections.includes(section)) {
+            output.innerHTML = '<div class="text-white">Navigating to ' + section + ' section...</div>';
+            setTimeout(() => {
+              document.getElementById(section)?.scrollIntoView({ behavior: 'smooth' });
+            }, 500);
+          } else {
+            output.innerHTML = '<div class="text-red-400">zsh: no such file or directory: ' + section + '</div>';
+          }
+        }
+        else if (command === 'about' || command === 'projects' || command === 'skills' || command === 'contact') {
+          output.innerHTML = '<div class="text-white">Navigating to ' + command + ' section...</div>';
+          setTimeout(() => {
+            document.getElementById(command)?.scrollIntoView({ behavior: 'smooth' });
+          }, 500);
+        }
+        else if (command) {
+          output.innerHTML = '<div class="text-red-400">zsh: command not found: ' + command + '</div>';
+        }
+        
+        history.appendChild(output);
+        history.scrollTop = history.scrollHeight;
+      }
+      
+      // Blinking cursor effect
+      setInterval(() => {
+        const cursor = document.querySelector('.terminal-cursor');
+        if (cursor) {
+          cursor.style.opacity = cursor.style.opacity === '0' ? '1' : '0';
+        }
+      }, 500);
+      
+      // Focus input on terminal click
+      const terminalBody = document.querySelector('.terminal-body');
+      if (terminalBody) {
+        terminalBody.addEventListener('click', () => {
+          const input = document.getElementById('terminal-input');
+          if (input) input.focus();
+        });
+      }
+      
+      // Handle terminal input
+      const terminalInput = document.getElementById('terminal-input');
+      if (terminalInput) {
+        terminalInput.addEventListener('keydown', (e) => {
+          if (e.key === 'Enter') {
+            const command = e.target.value.trim();
+            e.target.value = '';
+            handleTerminalCommand(command);
+          }
+        });
+      }
+    }
+
+    // Show toast notification
+    function showToast(message, duration = 3000) {
+      const toast = document.getElementById('toast');
+      toast.textContent = message;
+      toast.classList.add('show');
+      
+      setTimeout(() => {
+        toast.classList.remove('show');
+      }, duration);
+    }
+
+    // Copy email to clipboard
+    function copyEmail() {
+      const email = 'omprakash.mishra025@gmail.com';
+      navigator.clipboard.writeText(email).then(() => {
+        showToast('Email copied to clipboard!');
+      }).catch(err => {
+        showToast('Failed to copy email');
+        console.error('Failed to copy email: ', err);
+      });
+    }
+
+// Samsung-style Weather Widget Component with accurate location handling
+function WeatherWidget() {
+  const [weather, setWeather] = React.useState({
+    temp: '--°',
+    condition: 'loading',
+    location: 'Loading...',
+    time: '--:--',
+    city: 'Current Location',
+    humidity: '--%',
+    wind: '-- km/h',
+    feelsLike: '--°'
+  });
+
+  const [permissionGranted, setPermissionGranted] = React.useState(false);
+  const [loading, setLoading] = React.useState(true);
+  const [error, setError] = React.useState(null);
+  const [visible, setVisible] = React.useState(true);
+  const [lastScrollY, setLastScrollY] = React.useState(0);
+  const [isMobile, setIsMobile] = React.useState(false);
+
+  // Check if device is mobile
+  React.useEffect(() => {
+    const checkIfMobile = () => {
+      setIsMobile(window.innerWidth <= 768);
+    };
+
+    checkIfMobile();
+    window.addEventListener('resize', checkIfMobile);
+    return () => window.removeEventListener('resize', checkIfMobile);
+  }, []);
+
+  // Handle scroll behavior for desktop
+  React.useEffect(() => {
+    if (isMobile) return;
+
+    const handleScroll = () => {
+      const currentScrollY = window.scrollY;
+
+      if (currentScrollY > lastScrollY && currentScrollY > 100) {
+        setVisible(false);
+      } else if (currentScrollY < lastScrollY) {
+        setVisible(true);
+      }
+
+      setLastScrollY(currentScrollY);
+    };
+
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [lastScrollY, isMobile]);
+
+  // Format time
+  const formatTime = (date) => {
+    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+  };
+
+  // Update time every minute
+  React.useEffect(() => {
+    const updateTime = () => {
+      setWeather(prev => ({
+        ...prev,
+        time: formatTime(new Date())
+      }));
+    };
+
+    updateTime();
+    const timer = setInterval(updateTime, 60000);
+    return () => clearInterval(timer);
+  }, []);
+
+  // Improved city name extraction
+  const extractCityName = (address) => {
+    if (!address) return 'Current Location';
+
+    // Priority order for location names
+    const locationPriority = [
+      'city', 'town', 'village', 'locality', 'suburb',
+      'neighbourhood', 'county', 'state_district', 'state', 'country'
+    ];
+
+    // Try to get city name first, then fallback to other options
+    for (const type of locationPriority) {
+      if (address[type]) {
+        // For Indian cities, we want to show city name with state
+        if (['city', 'town', 'village', 'locality', 'suburb'].includes(type)) {
+          if (address.state && !address.state.includes('India')) {
+            return `${address[type]}, ${address.state}`;
+          }
+          return address[type];
+        }
+        return address[type];
+      }
+    }
+
+    return 'Current Location';
+  };
+
+  // Fetch weather data with fallback options
+  const fetchWeatherWithLocation = async (lat, lon) => {
+    try {
+      const apiKey = '40e93ab6528b5687db0a885d2942d4c4';
+      let cityName = 'Current Location';
+
+      // First try with OpenStreetMap Nominatim
+      try {
+        const locationResponse = await fetch(
+          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&zoom=18`
+        );
+
+        if (locationResponse.ok) {
+          const locationData = await locationResponse.json();
+          cityName = extractCityName(locationData.address);
+          
+          // If we didn't get a good city name, try with different zoom level
+          if (cityName === 'Current Location') {
+            const fallbackResponse = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&zoom=10`
+            );
+            if (fallbackResponse.ok) {
+              const fallbackData = await fallbackResponse.json();
+              cityName = extractCityName(fallbackData.address);
+            }
+          }
+        }
+      } catch (geoError) {
+        console.error('Nominatim error:', geoError);
+      }
+
+      // Fallback to OpenWeatherMap's city name if Nominatim fails
+      if (cityName === 'Current Location') {
+        const weatherResponse = await fetch(
+          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+        );
+        
+        if (weatherResponse.ok) {
+          const weatherData = await weatherResponse.json();
+          if (weatherData.name) {
+            cityName = weatherData.name;
+          }
+        }
+      }
+
+      // Final weather data fetch
+      const finalWeatherResponse = await fetch(
+        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+      );
+
+      if (!finalWeatherResponse.ok) {
+        throw new Error('Weather data not available');
+      }
+
+      const weatherData = await finalWeatherResponse.json();
+
+      // Determine weather condition
+      const weatherId = weatherData.weather[0].id;
+      let condition = 'sunny';
+
+      if (weatherId >= 200 && weatherId < 300) condition = 'thunderstorm';
+      else if (weatherId >= 300 && weatherId < 600) condition = 'rainy';
+      else if (weatherId >= 600 && weatherId < 700) condition = 'snow';
+      else if (weatherId >= 700 && weatherId < 800) condition = 'fog';
+      else if (weatherId === 800) condition = 'sunny';
+      else if (weatherId > 800) condition = weatherData.weather[0].icon.includes('d') ? 'partly-cloudy' : 'cloudy';
+
+      // Update state with accurate data
+      setWeather({
+        temp: `${Math.round(weatherData.main.temp)}°`,
+        condition,
+        location: cityName,
+        time: formatTime(new Date()),
+        city: cityName,
+        humidity: `${weatherData.main.humidity}%`,
+        wind: `${Math.round(weatherData.wind.speed * 3.6)} km/h`,
+        feelsLike: `${Math.round(weatherData.main.feels_like)}°`
+      });
+
+      setPermissionGranted(true);
+      setLoading(false);
+      setError(null);
+    } catch (error) {
+      console.error('Error fetching weather:', error);
+      setError('Weather data unavailable');
+      setLoading(false);
+      
+      // Set default city name if all else fails
+      setWeather(prev => ({
+        ...prev,
+        city: 'Current Location'
+      }));
+    }
+  };
+
+  // Get user location and fetch weather
+  React.useEffect(() => {
+    const fetchWeather = async () => {
+      if (navigator.geolocation) {
+        navigator.geolocation.getCurrentPosition(
+          async (position) => {
+            const { latitude, longitude } = position.coords;
+            await fetchWeatherWithLocation(latitude, longitude);
+          },
+          async (error) => {
+            console.error('Geolocation error:', error);
+            
+            // Fallback to IP-based location if geolocation is denied
+            try {
+              const ipResponse = await fetch('https://ipapi.co/json/');
+              if (ipResponse.ok) {
+                const ipData = await ipResponse.json();
+                await fetchWeatherWithLocation(ipData.latitude, ipData.longitude);
+              } else {
+                throw new Error('IP location failed');
+              }
+            } catch (ipError) {
+              console.error('IP location error:', ipError);
+              setError('Location access denied');
+              setLoading(false);
+            }
+          },
+          {
+            enableHighAccuracy: true,
+            timeout: 10000,
+            maximumAge: 0
+          }
+        );
+      } else {
+        // Fallback for browsers without geolocation
+        try {
+          const ipResponse = await fetch('https://ipapi.co/json/');
+          if (ipResponse.ok) {
+            const ipData = await ipResponse.json();
+            await fetchWeatherWithLocation(ipData.latitude, ipData.longitude);
+          } else {
+            throw new Error('Geolocation not supported');
+          }
+        } catch (error) {
+          console.error('IP location error:', error);
+          setError('Location not available');
+          setLoading(false);
+        }
+      }
+    };
+
+    fetchWeather();
+  }, []);
+
+  // Weather icon component
+  const getWeatherIcon = () => {
+    switch (weather.condition) {
+      case 'sunny':
+        return <i className="fas fa-sun oneui-weather-icon oneui-sunny"></i>;
+      case 'cloudy':
+        return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
+      case 'rainy':
+        return <i className="fas fa-cloud-rain oneui-weather-icon oneui-rainy"></i>;
+      case 'partly-cloudy':
+        return <i className="fas fa-cloud-sun oneui-weather-icon oneui-partly-cloudy"></i>;
+      case 'thunderstorm':
+        return <i className="fas fa-bolt oneui-weather-icon oneui-thunderstorm"></i>;
+      case 'snow':
+        return <i className="far fa-snowflake oneui-weather-icon oneui-snow"></i>;
+      case 'fog':
+        return <i className="fas fa-smog oneui-weather-icon oneui-fog"></i>;
+      case 'error':
+        return <i className="fas fa-exclamation-triangle oneui-weather-icon" style={{ color: '#FF6B6B' }}></i>;
+      case 'loading':
+        return <div className="oneui-weather-loading-spinner"></div>;
+      default:
+        return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
+    }
+  };
+
+  // Weather background class
+  const getWeatherBgClass = () => {
+    switch (weather.condition) {
+      case 'sunny':
+        return 'oneui-sunny-bg';
+      case 'cloudy':
+        return 'oneui-cloudy-bg';
+      case 'partly-cloudy':
+        return 'oneui-partly-cloudy-bg';
+      case 'rainy':
+        return 'oneui-rainy-bg';
+      case 'thunderstorm':
+        return 'oneui-thunderstorm-bg';
+      case 'snow':
+        return 'oneui-snow-bg';
+      case 'fog':
+        return 'oneui-fog-bg';
+      default:
+        return '';
+    }
+  };
+
+  // Mobile layout
+  if (isMobile) {
+    return (
+      <div className="mobile-weather-widget">
+        <div className="mobile-weather-left">
+          <div className="mobile-weather-icon">
+            {getWeatherIcon()}
+          </div>
+          <div>
+            <div className="mobile-weather-temp">{weather.temp}</div>
+            <div className="mobile-weather-location" title={weather.city}>
+              {weather.city.split(',')[0]} {/* Show only city name on mobile */}
+            </div>
+          </div>
+        </div>
+
+        <div className="mobile-weather-right">
+          <div className="mobile-weather-detail">
+            <i className="fas fa-tint"></i>
+            <span>{weather.humidity}</span>
+          </div>
+          <div className="mobile-weather-detail">
+            <i className="fas fa-wind"></i>
+            <span>{weather.wind}</span>
+          </div>
+          <div className="mobile-weather-detail">
+            <i className="fas fa-clock"></i>
+            <span>{weather.time}</span>
+          </div>
+        </div>
+      </div>
+    );
+  }
+
+  // Loading state
+  if (loading) {
+    return (
+      <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
+        <div className="oneui-weather-loading">
+          <div className="oneui-weather-loading-spinner"></div>
+          <div>Loading weather...</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Error state
+  if (error) {
+    return (
+      <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
+        <div className="oneui-weather-error">
+          <i className="fas fa-exclamation-circle"></i>
+          <div>{error}</div>
+        </div>
+      </div>
+    );
+  }
+
+  // Desktop layout
+  return (
+    <div className={`oneui-weather-widget ${visible ? '' : 'hidden'} ${getWeatherBgClass()}`} 
+             style={{ top: '80px' }}> {/* Changed from fixed to absolute positioning */}
+          <div className="oneui-weather-icon-container">
+            {getWeatherIcon()}
+          </div>
+
+          <div className="oneui-weather-info">
+            <div className="oneui-weather-temp">{weather.temp}</div>
+            <div className="oneui-weather-location" title={weather.city}>
+              {weather.city.includes(',') ? (
+                <>
+                  <span className="oneui-city-main">{weather.city.split(',')[0]}</span>
+                  <span className="oneui-city-region">{weather.city.split(',').slice(1).join(',').trim()}</span>
+                </>
+              ) : (
+                weather.city
+              )}
+            </div>
+            <div className="oneui-weather-additional">
+              <div className="oneui-weather-humidity">
+                <i className="fas fa-tint"></i>
+                <span>{weather.humidity}</span>
+              </div>
+              <div className="oneui-weather-wind">
+                <i className="fas fa-wind"></i>
+                <span>{weather.wind}</span>
+              </div>
+              <div className="oneui-weather-feels-like">
+                <i className="fas fa-temperature-low"></i>
+                <span>{weather.feelsLike}</span>
+              </div>
+            </div>
+          </div>
+
+          <div className="oneui-weather-time">
+            <i className="fas fa-clock"></i>
+            <span>{weather.time}</span>
+          </div>
+        </div>
+      );
+    }
+
+
+    // Testimonial Component
+    function TestimonialSection() {
+      const testimonials = [
+         {
+      name: "Biswaswagat Pradhan",
+      role: "Software Engineer, Innovatech Labs",
+      rating: 5,
+      content:
+        "Om consistently brings a balance of innovation and precision to our projects. His problem-solving mindset and ability to write scalable Java code have made our joint work incredibly productive and forward-thinking.",
+      image: "biswa.jpg",
+    },
+    {
+      name: "Omm Rout",
+      role: "Full Stack Developer, CodeSphere",
+      rating: 5,
+      content:
+        "Teaming up with Om has always been a power combo. His logical clarity, React expertise, and smooth communication make him the kind of developer every high-performing team needs.",
+      image: "ommRout.jpg",
+    },
+    {
+      name: "Omm Prakash Roul",
+      role: "Senior Developer, TechSolutions",
+      rating: 5,
+      content:
+        "Om's deep understanding of backend systems and his intuitive UI approach helped transform our project ideas into polished, functional apps. He's a developer with true leadership instincts and technical finesse.",
+      image: "ommR.jpg",
+    },
+    {
+      name: "Rakesh Kumar Bahinipati",
+      role: "Project Coordinator, NextGen Apps",
+      rating: 4,
+      content:
+        "Om's consistency, adaptability, and technical agility always uplifted our teamwork. His proactive communication and drive to go beyond the task helped us meet every deadline with confidence.",
+      image: "bahinipati.jpg",
+    },
+    {
+      name: "Jaydev Behera",
+      role: "QA Specialist, ReliableSoft",
+      rating: 4,
+      content:
+        "It's been inspiring to watch Om grow into a detail-oriented and results-driven developer. His willingness to listen to QA feedback and implement flawless fixes made our product quality shine.",
+      image: "jayadev.jpg",
+    },
+    {
+      name: "Isita Mohapatra",
+      role: "Developer l8, wipro",
+      rating: 4,
+      content:
+        "Omprakash Mishra has consistently demonstrated strong dedication and passion for software engineering. His ability to quickly grasp complex technical concepts and apply them in real-world projects is truly commendable.",
+      image: "ishita.jpg",
+    },
+    {
+      name: "Tanushree Hazary",
+      role: "Data Analytics, TCS",
+      rating: 4,
+      content:
+        "I have no doubt that Omprakash will be an asset to any team or organization he becomes part of. He is a future-ready software engineer with the mindset and skills required to thrive in today’s fast-evolving tech landscape",
+      image: "tanu.jpg",
+    },
+  ];
+      
+      // Duplicate testimonials for infinite scroll effect
+      const duplicatedTestimonials = [...testimonials, ...testimonials];
+      
+      return (
+        <section id="testimonials" className="py-20 bg-gradient-to-b from-[#0d1117] to-[#161b22]">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-pink-500 to-red-500">
+              TESTIMONIAL
+            </h2>
+            
+            <div className="testimonial-wrapper relative">
+              <div className="testimonial-carousel">
+                {duplicatedTestimonials.map((testimonial, index) => (
+                  <div 
+                    key={`${index}-${testimonial.name}`}
+                    className="testimonial-card p-6 w-80 flex-shrink-0"
+                    style={{ animationDelay: `${index * 0.1}s` }}
+                  >
+                    <div className="absolute -top-10 -right-10 w-20 h-20 bg-blue-500/10 rounded-full rotate"></div>
+                    <div className="flex items-center mb-4">
+                      <img 
+                        src={testimonial.image} 
+                        alt={testimonial.name}
+                        className="profile-pic mr-4"
+                      />
+                      <div>
+                        <h3 className="font-bold">{testimonial.name}</h3>
+                        <p className="text-sm text-gray-400">{testimonial.role}</p>
+                      </div>
+                    </div>
+                    <div className="star-rating mb-3">
+                      {[...Array(5)].map((_, i) => (
+                        <i 
+                          key={i}
+                          className={`fas fa-star ${i < testimonial.rating ? 'text-yellow-400' : 'text-gray-600'}`}
+                        ></i>
+                      ))}
+                    </div>
+                    <p className="text-gray-300 italic">"{testimonial.content}"</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+            
+            {/* Resume Download Section */}
+            <div className="mt-16 max-w-2xl mx-auto">
+              <div className="resume-card p-8 text-center">
+                <h3 className="text-2xl font-bold mb-4">Get My Resume</h3>
+                <p className="mb-6 text-gray-300">Download my full resume or connect with me directly</p>
+                
+                <div className="flex flex-col sm:flex-row justify-center items-center space-y-4 sm:space-y-0 sm:space-x-6">
+                  <a 
+                    href="OMM_PRAKASH_RESUME.pdf" // Replace with actual resume URL
+                    className="download-btn px-6 py-3 text-white rounded-md transition-all duration-300 relative overflow-hidden flex items-center justify-center"
+                    onClick={(e) => {
+                      e.preventDefault();
+                      showToast('Resume download coming soon!');
+                    }}
+                  >
+                    <i className="fas fa-download mr-2"></i> Download Resume
+                  </a>
+                  
+                  <button 
+                    onClick={copyEmail}
+                    className="px-6 py-3 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white transition flex items-center pulse"
+                  >
+                    <i className="fas fa-copy mr-2"></i> Click to copy my email
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Contact Form Component
+    function ContactForm() {
+  const [formData, setFormData] = React.useState({
+    name: '',
+    email: '',
+    subject: '',
+    message: ''
+  });
+  
+  const [errors, setErrors] = React.useState({});
+  const [isSubmitting, setIsSubmitting] = React.useState(false);
+  const [submitStatus, setSubmitStatus] = React.useState(null);
+  
+  const handleChange = (e) => {
+    const { name, value } = e.target;
+    setFormData(prev => ({ ...prev, [name]: value }));
+    
+    // Clear error when user starts typing
+    if (errors[name]) {
+      setErrors(prev => {
+        const newErrors = { ...prev };
+        delete newErrors[name];
+        return newErrors;
+      });
+    }
+  };
+  
+  const validate = () => {
+    const newErrors = {};
+    
+    if (!formData.name.trim()) {
+      newErrors.name = 'Name is required';
+    }
+    
+    if (!formData.email.trim()) {
+      newErrors.email = 'Email is required';
+    } else if (!/\S+@\S+\.\S+/.test(formData.email)) {
+      newErrors.email = 'Email is invalid';
+    }
+    
+    if (!formData.subject.trim()) {
+      newErrors.subject = 'Subject is required';
+    }
+    
+    if (!formData.message.trim()) {
+      newErrors.message = 'Message is required';
+    }
+    
+    return newErrors;
+  };
+  
+  const handleSubmit = async (e) => {
+    e.preventDefault();
+    const newErrors = validate();
+    
+    if (Object.keys(newErrors).length > 0) {
+      setErrors(newErrors);
+      return;
+    }
+    
+    setIsSubmitting(true);
+    
+    try {
+      const response = await fetch("https://formspree.io/f/mvgqwlwo", {
+        method: "POST",
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify(formData),
+      });
+      
+      if (response.ok) {
+        setSubmitStatus('success');
+        setFormData({ name: '', email: '', subject: '', message: '' });
+      } else {
+        setSubmitStatus('error');
+      }
+    } catch (error) {
+      console.error('Error submitting form:', error);
+      setSubmitStatus('error');
+    } finally {
+      setIsSubmitting(false);
+      
+      // Reset status after 3 seconds
+      setTimeout(() => setSubmitStatus(null), 3000);
+    }
+  };
+  
+  return (
+    <form onSubmit={handleSubmit}>
+      <div className="mb-4">
+        <label htmlFor="name" className="block mb-2 font-medium">Name</label>
+        <input
+          type="text"
+          id="name"
+          name="name"
+          value={formData.name}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 rounded-md border ${
+            errors.name ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
+          } bg-transparent`}
+        />
+        {errors.name && <p className="text-red-500 text-sm mt-1">{errors.name}</p>}
+      </div>
+      
+      <div className="mb-4">
+        <label htmlFor="email" className="block mb-2 font-medium">Email</label>
+        <input
+          type="email"
+          id="email"
+          name="email"
+          value={formData.email}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 rounded-md border ${
+            errors.email ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
+          } bg-transparent`}
+        />
+        {errors.email && <p className="text-red-500 text-sm mt-1">{errors.email}</p>}
+      </div>
+      
+      <div className="mb-4">
+        <label htmlFor="subject" className="block mb-2 font-medium">Subject</label>
+        <input
+          type="text"
+          id="subject"
+          name="subject"
+          value={formData.subject}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 rounded-md border ${
+            errors.subject ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
+          } bg-transparent`}
+        />
+        {errors.subject && <p className="text-red-500 text-sm mt-1">{errors.subject}</p>}
+      </div>
+      
+      <div className="mb-6">
+        <label htmlFor="message" className="block mb-2 font-medium">Message</label>
+        <textarea
+          id="message"
+          name="message"
+          rows="4"
+          value={formData.message}
+          onChange={handleChange}
+          className={`w-full px-4 py-2 rounded-md border ${
+            errors.message ? 'border-red-500' : 'border-gray-300 dark:border-gray-700'
+          } bg-transparent`}
+        ></textarea>
+        {errors.message && <p className="text-red-500 text-sm mt-1">{errors.message}</p>}
+      </div>
+      
+      <button
+        type="submit"
+        disabled={isSubmitting}
+        className="w-full px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition disabled:opacity-50"
+      >
+        {isSubmitting ? 'Sending...' : 'Send Message'}
+      </button>
+      
+      {submitStatus === 'success' && (
+        <div className="mt-4 p-3 bg-green-500/20 text-green-500 rounded-md">
+          Message sent successfully! I'll get back to you soon.
+        </div>
+      )}
+      
+      {submitStatus === 'error' && (
+        <div className="mt-4 p-3 bg-red-500/20 text-red-500 rounded-md">
+          Failed to send message. Please try again later.
+        </div>
+      )}
+    </form>
+  );
+}
+
+
+    // Project Card Component
+    function ProjectCard({ project, index }) {
+      const showProjectDetails = () => {
+        const modal = document.getElementById('modal');
+        const modalTitle = document.getElementById('modal-title');
+        const modalContent = document.getElementById('modal-content');
+        
+        modalTitle.textContent = project.title;
+        
+        modalContent.innerHTML = `
+          <div class="mb-4">
+            <p class="text-lg mb-2">${project.description}</p>
+            <p class="text-blue-500">${project.tech}</p>
+          </div>
+          
+          <div class="mb-6">
+            <h4 class="text-lg font-bold mb-2">Features</h4>
+            <ul class="list-disc pl-5">
+              ${[
+                "Responsive design",
+                "Modern UI/UX",
+                "Interactive elements",
+                "Performance optimized"
+              ].map(f => `<li>${f}</li>`).join('')}
+            </ul>
+          </div>
+          
+          <div class="flex flex-wrap gap-2 mb-6">
+            ${project.tags.map(tag => 
+              `<span class="px-3 py-1 bg-gray-200 dark:bg-gray-700 rounded-full text-sm">${tag}</span>`
+            ).join('')}
+          </div>
+          
+          <div class="flex space-x-4">
+            <a href="${project.live || '#'}" target="_blank" class="px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition ${!project.live ? 'opacity-50 cursor-not-allowed' : ''}">View Demo</a>
+            <a href="${project.github}" target="_blank" class="px-4 py-2 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white transition">Source Code</a>
+          </div>
+        `;
+        
+        modal.classList.add('active');
+      };
+      
+      return (
+        <div className="project-card">
+          <div className="project-card-inner">
+            <div className="project-card-front">
+              <div className="w-full h-full bg-gray-200 dark:bg-gray-800 rounded-lg overflow-hidden">
+                <div className="w-full h-40 bg-gray-300 dark:bg-gray-700"></div>
+                <div className="p-4">
+                  <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+                  <p className="text-gray-600 dark:text-gray-400">{project.tech}</p>
+                  <div className="mt-4 flex flex-wrap gap-2">
+                    {project.tags.map((tag, i) => (
+                      <span key={i} className="px-2 py-1 bg-gray-300 dark:bg-gray-700 text-xs rounded">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+                </div>
+              </div>
+            </div>
+            
+            <div className="project-card-back">
+              <h3 className="text-xl font-bold mb-2">{project.title}</h3>
+              <p className="text-gray-400 mb-4">{project.description}</p>
+              <button 
+                onClick={showProjectDetails}
+                className="mt-4 px-4 py-2 bg-blue-500 text-white rounded-md hover:bg-blue-600 transition"
+              >
+                View Details
+              </button>
+            </div>
+          </div>
+        </div>
+      );
+    }
+
+    // Skills Section Component
+    function SkillsSection() {
+      const skills = [
+        { name: "HTML5", icon: "devicon-html5-plain colored" },
+        { name: "CSS3", icon: "devicon-css3-plain colored" },
+        { name: "JavaScript", icon: "devicon-javascript-plain colored" },
+        { name: "Java", icon: "devicon-java-plain colored" },
+        { name: "MySQL", icon: "devicon-mysql-plain colored" },
+        { name: "AWS", icon: "devicon-amazonwebservices-plain colored" },
+        { name: "Git", icon: "devicon-git-plain colored" },
+        { name: "GitHub", icon: "devicon-github-original", customClass: "bg-white rounded-full p-1" },
+        { name: "VS Code", icon: "devicon-vscode-plain colored" },
+        { name: "Adobe Premiere", icon: "devicon-premierepro-plain colored" }
+      ];
+      
+      return (
+        <section id="skills" className="py-12 bg-gradient-to-b from-[#0d1117] to-[#161b22]">
+          <div className="container mx-auto px-4">
+            <h2 className="text-3xl font-bold mb-8 text-center tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-cyan-400 via-blue-500 to-purple-500">
+              SKILLS
+            </h2>
+            
+            <div className="flex flex-wrap justify-center gap-8 max-w-4xl mx-auto">
+              {skills.map((skill, index) => (
+                <div 
+                  key={index}
+                  className="flex flex-col items-center w-20 animate-float"
+                  style={{ 
+                    animationDelay: `${index * 0.1}s`,
+                    animationDuration: '4s'
+                  }}
+                >
+                  <i className={`${skill.icon} text-5xl mb-2`}></i>
+                  <span className="text-sm text-center">{skill.name}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    }
+
+    // Main App Component
+    function App() {
+      const [theme, setTheme] = React.useState('dark');
+      const [activeTab, setActiveTab] = React.useState('home');
+      const [showScrollTop, setShowScrollTop] = React.useState(false);
+      const [typingText, setTypingText] = React.useState('');
+      const [typingIndex, setTypingIndex] = React.useState(0);
+      const [typingRole, setTypingRole] = React.useState(0);
+      const [showMobileMenu, setShowMobileMenu] = React.useState(false);
+      
+      const roles = [
+        "Java Developer",
+        "Web Developer",
+        "Software Developer",
+        "Video Editor"
+      ];
+      
+      const projects = [
+        {
+          title: "Weather Application",
+          tech: "JavaScript + Weather API",
+          description: "Dynamic weather application that provides real-time weather data and forecasts based on user location using third-party API.",
+          tags: ["JavaScript", "API", "Web"],
+          github: "https://github.com/OMPrakash9622/weather-app.git"
+        },
+        {
+          title: "Personal Portfolio Website",
+          tech: "HTML, CSS, JavaScript",
+          description: "Responsive personal portfolio website to showcase skills and projects with interactive elements.",
+          tags: ["Web", "UI/UX", "JavaScript"],
+          github: "https://github.com/OMPrakash9622/portfolio.git"
+        }
+      ];
+      
+      // Toggle theme
+      const toggleTheme = () => {
+        const newTheme = theme === 'dark' ? 'light' : 'dark';
+        setTheme(newTheme);
+        document.documentElement.setAttribute('data-theme', newTheme);
+      };
+      
+      // Toggle mobile menu
+      const toggleMobileMenu = () => {
+        setShowMobileMenu(!showMobileMenu);
+      };
+      
+      // Handle scroll
+      React.useEffect(() => {
+        const handleScroll = () => {
+          setShowScrollTop(window.scrollY > 300);
+          
+          // Update active tab based on scroll position
+          const sections = ['Home', 'About', 'Skills', 'Projects', 'Testimonials', 'Contact'];
+          const scrollPosition = window.scrollY + 100;
+          
+          for (const section of sections) {
+            const element = document.getElementById(section);
+            if (element) {
+              const offsetTop = element.offsetTop;
+              const offsetHeight = element.offsetHeight;
+              
+              if (scrollPosition >= offsetTop && scrollPosition < offsetTop + offsetHeight) {
+                setActiveTab(section);
+                break;
+              }
+            }
+          }
+        };
+        
+        window.addEventListener('scroll', handleScroll);
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, []);
+      
+      // Handle typing animation
+      React.useEffect(() => {
+        if (typingIndex < roles[typingRole].length) {
+          const timeout = setTimeout(() => {
+            setTypingText(prev => prev + roles[typingRole].charAt(typingIndex));
+            setTypingIndex(prev => prev + 1);
+          }, 100);
+          return () => clearTimeout(timeout);
+        } else {
+          const timeout = setTimeout(() => {
+            setTypingIndex(0);
+            setTypingText('');
+            setTypingRole((prev) => (prev + 1) % roles.length);
+          }, 2000);
+          return () => clearTimeout(timeout);
+        }
+      }, [typingIndex, typingRole]);
+      
+      // Set initial theme and setup terminal
+      React.useEffect(() => {
+        document.documentElement.setAttribute('data-theme', theme);
+        setupTerminal();
+        
+        // Close modal handler
+        const modal = document.getElementById('modal');
+        const closeModal = document.getElementById('close-modal');
+        
+        if (closeModal) {
+          closeModal.addEventListener('click', () => {
+            modal.classList.remove('active');
+          });
+        }
+        
+        // Close modal when clicking outside content
+        modal.addEventListener('click', (e) => {
+          if (e.target === modal) {
+            modal.classList.remove('active');
+          }
+        });
+        
+        return () => {
+          if (closeModal) {
+            closeModal.removeEventListener('click', () => {
+              modal.classList.remove('active');
+            });
+          }
+          modal.removeEventListener('click', (e) => {
+            if (e.target === modal) {
+              modal.classList.remove('active');
+            }
+          });
+        };
+      }, []);
+      
+      // Scroll to top
+      const scrollToTop = () => {
+        window.scrollTo({
+          top: 0,
+          behavior: 'smooth'
+        });
+      };
+      
+      // Scroll to section
+      const scrollToSection = (sectionId) => {
+        const element = document.getElementById(sectionId);
+        if (element) {
+          element.scrollIntoView({ behavior: 'smooth' });
+          setActiveTab(sectionId);
+          setShowMobileMenu(false);
+        }
+      };
+      
+      return (
+       <div className="min-h-screen flex flex-col">
+  {/* GitHub-like Header */}
+   <header className="github-header py-4 px-6 sticky top-0 z-50">
+    <div className="container mx-auto flex flex-col md:flex-row justify-between items-center">
+      <div className="flex items-center space-x-2 mb-4 md:mb-0">
+        {/* Round profile picture */}
+        <img 
+          src="ommMishra.jpg" 
+          alt="Om Prakash Mishra"
+          className="w-8 h-8 rounded-full object-cover border-2 border-white shadow-sm"
+        />
+        <span className="font-bold text-xl">OM Prakash Mishra</span>
+      </div>
+
+              
+              {/* Mobile menu button */}
+              <button 
+                className="md:hidden px-3 py-1 rounded-md bg-gray-200 dark:bg-gray-700"
+                onClick={toggleMobileMenu}
+              >
+                <i className={`fas ${showMobileMenu ? 'fa-times' : 'fa-bars'}`}></i>
+              </button>
+              
+              {/* Desktop tabs */}
+              <div className="hidden md:flex github-tabs space-x-1">
+                {['Home', 'About', 'Skills', 'Projects', 'Testimonials', 'Contact'].map((tab) => (
+                  <button
+                    key={tab}
+                    className={`github-tab ${activeTab === tab ? 'active' : ''}`}
+                    onClick={() => scrollToSection(tab)}
+                  >
+                    {tab}{tab === 'home' ? '' : tab === 'projects' ? '' : tab === 'contact' ? '' : ''}
+                  </button>
+                ))}
+              </div>
+              
+              <div className="flex items-center">
+                <button 
+                  className="hidden md:block px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-700"
+                  onClick={toggleTheme}
+                >
+                  {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+                </button>
+              </div>
+            </div>
+            
+            {/* Mobile menu */}
+            {showMobileMenu && (
+              <div className="mobile-menu md:hidden mt-4">
+                {['Home', 'About', 'Skills', 'Projects', 'Testimonials', 'Contact'].map((tab) => (
+                  <button
+                    key={tab}
+                    className={`github-tab w-full text-left ${activeTab === tab ? 'active' : ''}`}
+                    onClick={() => scrollToSection(tab)}
+                  >
+                    {tab}{tab === 'home' ? '' : tab === 'projects' ? '' : tab === 'contact' ? '' : ''}
+                  </button>
+                ))}
+                <button 
+                  className="w-full text-left px-4 py-2 rounded-md bg-gray-200 dark:bg-gray-700 mt-2"
+                  onClick={toggleTheme}
+                >
+                  {theme === 'dark' ? '☀️ Light' : '🌙 Dark'}
+                </button>
+              </div>
+            )}
+          </header>
+          
+          {/* Mobile Weather Widget - Now positioned below navbar */}
+          <WeatherWidget />
+          
+          <main className="flex-grow">
+            {/* Hero Section */}
+            <section
+              id="home"
+              className="min-h-screen px-4 md:px-0 bg-gradient-to-b from-[#0d1117] to-[#161b22] text-white flex items-center justify-center"
+            >
+              <div className="container mx-auto flex flex-col items-center justify-center text-center">
+                {/* Hero Text */}
+                <div className="hero-text">
+                  <h1 className="text-4xl md:text-6xl font-bold mb-4 leading-tight">
+                    <span className="block">OM Prakash Mishra</span>
+                    <span className="block text-blue-500 glitch-text tracking-wide">
+                      {typingText}
+                      <span className="animate-pulse">|</span>
+                    </span>
+                  </h1>
+
+                  <p className="text-xl mb-6 max-w-xl">
+                    Software Developer | Java & Web Enthusiast | Video Editor — crafting digital experiences from India.
+                  </p>
+
+                  <div className="flex flex-wrap gap-4 justify-center">
+                    <a
+                      href="https://github.com/OMPrakash9622"
+                      target="_blank"
+                      className="px-6 py-3 bg-blue-600 text-white rounded-md hover:bg-blue-700 transition flex items-center"
+                      rel="noreferrer"
+                    >
+                      <i className="fab fa-github mr-2"></i> GitHub
+                    </a>
+
+                    <a
+                      href="#contact"
+                      className="px-6 py-3 border border-blue-500 text-blue-500 rounded-md hover:bg-blue-500 hover:text-white transition flex items-center"
+                    >
+                      <i className="fas fa-paper-plane mr-2"></i> Contact Me
+                    </a>
+                  </div>
+                </div>
+                
+                {/* macOS-style Terminal - Moved below hero text */}
+                <div className="relative mt-12 w-full md:w-80 h-64 bg-black/80 backdrop-blur-sm rounded-lg border border-gray-700 overflow-hidden shadow-2xl">
+                  {/* Terminal header */}
+                  <div className="flex items-center px-4 py-2 bg-gray-800/90 border-b border-gray-700">
+                    <div className="flex space-x-2 mr-4">
+                      <div className="w-3 h-3 rounded-full bg-[#ff5f56] hover:bg-[#ff3b30] transition"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#ffbd2e] hover:bg-[#ff9500] transition"></div>
+                      <div className="w-3 h-3 rounded-full bg-[#27c93f] hover:bg-[#34c759] transition"></div>
+                    </div>
+                    <div className="text-xs text-gray-400 font-mono">bash — 80×24</div>
+                  </div>
+                  
+                  {/* Terminal body */}
+                  <div className="p-4 font-mono text-sm h-[calc(100%-2.5rem)] overflow-y-auto terminal-body">
+                    {/* New header line */}
+                    <div className="text-blue-400 mb-2">💻 Use this terminal to explore this webpage dynamically.</div>
+                    
+                    {/* Initial welcome message with typewriter effect */}
+                    <div className="text-green-400 mb-2">➜ <span class="text-blue-400">portfolio</span> git:(<span class="text-yellow-400">main</span>)</div>
+                    <div className="text-green-400 mb-2">$ <span className="text-white typewriter">Welcome to Om Prakash Mishra's interactive portfolio</span></div>
+                    <div className="text-green-400 mb-2">$ <span className="text-white typewriter" style={{ animationDelay: '1.5s' }}>Type "help" for available commands</span></div>
+                    
+                    {/* Command history container */}
+                    <div id="terminal-history" className="mb-2"></div>
+                    
+                    {/* Current command line */}
+                    <div className="flex items-center">
+                      <span className="text-green-400 mr-2">$</span>
+                      <input
+                        type="text"
+                        id="terminal-input"
+                        className="flex-1 bg-transparent text-white outline-none caret-green-400 terminal-input"
+                        autoFocus
+                        spellCheck="false"
+                      />
+                      <span className="terminal-cursor">|</span>
+                    </div>
+                  </div>
+                  
+                  {/* Subtle glow effect */}
+                  <div className="absolute inset-0 rounded-lg pointer-events-none opacity-20 bg-blue-500/30 mix-blend-screen"></div>
+                </div>
+              </div>
+            </section>
+            
+            {/* About Section */}
+            <section id="about" className="py-20 bg-gradient-to-b from-transparent to-[rgba(22,27,34,0.5)]">
+              <div className="container mx-auto px-4">
+                <h2 className="text-3xl font-bold mb-8 text-center">ABOUT ME</h2>
+
+                <div className="github-readme max-w-4xl mx-auto">
+                  <div className="github-readme-header px-4 py-2 rounded-t-md flex items-center bg-[#0d1117] text-white">
+                    
+                    <div className="flex-grow text-center font-bold">
+                      DEVELOPER PROFILE
+                    </div>
+                  </div>
+
+                  <div className="p-6 bg-[#161b22] text-white rounded-b-md">
+                    <h3 className="text-2xl font-bold mb-4">👋 Hey, I'm Om Prakash Mishra</h3>
+
+                    <div className="mb-6">
+                      <p className="mb-4">
+                        I'm a passionate Software Developer with expertise in Java, Web Development, and Video Editing. I enjoy building creative projects and solving real-world problems with technology.
+                      </p>
+                      <p className="mb-4">
+                        My current focus is on mastering Java development, cloud technologies, and creating engaging digital experiences. When I'm not coding, you can find me editing videos or exploring new tech trends.
+                      </p>
+                    </div>
+
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                      <div>
+                        <h4 className="text-xl font-bold mb-3">🧠 Core Skills</h4>
+                        <ul className="list-disc pl-5 space-y-2">
+                          <li>Java, JavaScript, HTML, CSS</li>
+                          <li>MySQL Database</li>
+                          <li>AWS Cloud Services</li>
+                          <li>Video Editing (Adobe Premiere)</li>
+                          <li>Problem Solving & Debugging</li>
+                        </ul>
+                      </div>
+
+                      <div>
+                        <h4 className="text-xl font-bold mb-3">📬 Contact Info</h4>
+                        <ul className="space-y-2">
+                          <li className="flex items-center">
+                            <i className="fas fa-envelope mr-3 text-blue-500"></i>
+                            omprakash.mishra025@gmail.com
+                          </li>
+                          <li className="flex items-center">
+                            <i className="fas fa-phone mr-3 text-blue-500"></i>
+                            +91 8249755708
+                          </li>
+                          <li className="flex items-center">
+                            <i className="fab fa-linkedin mr-3 text-blue-500"></i>
+                            <a href="https://www.linkedin.com/in/om-prakash-mishra01" target="_blank" className="hover:underline" rel="noreferrer">linkedin.com/in/om-prakash-mishra01</a>
+                          </li>
+                          <li className="flex items-center">
+                            <i className="fab fa-github mr-3 text-blue-500"></i>
+                            <a href="https://github.com/OMPrakash9622" target="_blank" className="hover:underline" rel="noreferrer">github.com/OMPrakash9622</a>
+                          </li>
+                          <li className="flex items-center">
+                            <i className="fas fa-map-marker-alt mr-3 text-blue-500"></i>
+                            India
+                          </li>
+                        </ul>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+            
+            {/* Skills Section */}
+            <SkillsSection />
+            
+            {/* Projects Section */}
+            <section
+                id="projects"
+                className="py-24 bg-gradient-to-b from-[#0d1117] via-[#0e1014] to-[#161b22] text-white"
+              >
+                <h2 className="text-3xl font-bold mb-12 text-center tracking-wide text-transparent bg-clip-text bg-gradient-to-r from-purple-400 via-cyan-400 to-blue-500 animate-pulse">
+                  PROJECTS
+                </h2>
+
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-10 px-6 md:px-20">
+                  {[
+                    {
+                      title: "Weather Web Application",
+                      image: "weather.jpg",
+                      tech: "React + TMDB API",
+                      description:
+                        "Dynamic movie browsing platform with debounced search...",
+                      tags: ["React", "API", "Tailwind"],
+                      live: "https://weather-web-app-drab-three.vercel.app/",
+                      github: "https://github.com/Omm7/TrailerWave.git",
+                    },
+                    {
+                      title: "ATM Simulation System",
+                      image: "atm.jpg",
+                      tech: "Java Swing + MySQL",
+                      description: "Simulates real-world ATM operations...",
+                      tags: ["Java", "Swing", "Database"],
+                      github:
+                        "https://github.com/Omm7/ATM_Simulation_System.git",
+                    },
+                    {
+                      title: "Responsive Music Player",
+                      image: "/music.jpg",
+                      tech: "HTML, CSS, JavaScript",
+                      description:
+                        "A sleek music player UI built from scratch...",
+                      tags: ["Web", "UI/UX", "JavaScript"],
+                      github: "https://github.com/Omm7/spotify_clone.git",
+                    },
+                  ].map((project, index) => (
+                    <div
+                      key={index}
+                      className="bg-[#161b22] rounded-xl overflow-hidden shadow-xl hover:shadow-cyan-500/20 transform transition duration-500 hover:scale-[1.03]"
+                      style={{ maxWidth: "370px", margin: "0 auto" }}
+                    >
+                      <img
+                        src={project.image}
+                        alt={project.title}
+                        className="w-full h-48 object-cover hover:brightness-110 transition duration-300"
+                      />
+                      <div className="p-6 space-y-4">
+                        <h3 className="text-2xl font-semibold text-white">
+                          {project.title}
+                        </h3>
+                        <p className="text-cyan-400 text-sm">{project.tech}</p>
+                        <p className="text-gray-400 text-sm">
+                          {project.description}
+                        </p>
+                        <div className="flex flex-wrap gap-2">
+                          {project.tags.map((tag, i) => (
+                            <span
+                              key={i}
+                              className="text-xs px-2 py-1 bg-gray-800 text-white rounded-full border border-gray-600"
+                            >
+                              {tag}
+                            </span>
+                          ))}
+                        </div>
+                        <div className="mt-4 flex flex-wrap gap-3">
+                          {project.live && (
+                            <a
+                              href={project.live}
+                              target="_blank"
+                              rel="noreferrer"
+                              className="inline-block px-4 py-2 bg-gradient-to-r from-cyan-500 to-blue-500 text-white rounded shadow-lg hover:scale-105 transition-transform duration-300"
+                            >
+                              View Demo
+                            </a>
+                          )}
+                          <a
+                            href={project.github}
+                            target="_blank"
+                            rel="noreferrer"
+                            className="inline-block px-4 py-2 bg-[#0d1117] text-white border border-gray-600 rounded hover:scale-105 transition-transform duration-300"
+                          >
+                            GitHub Repo
+                          </a>
+                        </div>
+                      </div>
+                    </div>
+                  ))}
+                </div>
+              </section>
+
+            
+            {/* Testimonials Section */}
+            <TestimonialSection />
+            
+            {/* Contact Section */}
+            <section id="contact" className="py-20">
+              <div className="container mx-auto px-4">
+                <h2 className="text-3xl font-bold mb-8 text-center">CONTACT</h2>
+                
+                <div className="max-w-3xl mx-auto github-readme p-6">
+                  <h3 className="text-2xl font-bold mb-6">📧 Get in Touch</h3>
+                  
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
+                    <div>
+                      <h4 className="text-xl font-bold mb-4">Direct Contact</h4>
+                      <p className="mb-4">
+                        Feel free to reach out if you're looking for a developer, have a question, or just want to connect.
+                      </p>
+                      
+                      <ul className="space-y-3">
+                        <li className="flex items-center">
+                          <i className="fas fa-envelope mr-3 text-blue-500 text-xl"></i>
+                          omprakash.mishra025@gmail.com
+                        </li>
+                        <li className="flex items-center">
+                          <i className="fas fa-phone mr-3 text-blue-500 text-xl"></i>
+                          +91 8249755708
+                        </li>
+                        <li className="flex items-center">
+                          <i className="fab fa-linkedin mr-3 text-blue-500 text-xl"></i>
+                          <a href="https://www.linkedin.com/in/om-prakash-mishra01" target="_blank" className="hover:underline" rel="noreferrer">linkedin.com/in/om-prakash-mishra01</a>
+                        </li>
+                        <li className="flex items-center">
+                          <i className="fab fa-github mr-3 text-blue-500 text-xl"></i>
+                          <a href="https://github.com/OMPrakash9622" target="_blank" className="hover:underline" rel="noreferrer">github.com/OMPrakash9622</a>
+                        </li>
+                      </ul>
+                    </div>
+                    
+                    <div>
+                      <ContactForm />
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </section>
+          </main>
+          
+          {/* GitHub-like Footer */}
+          <footer className="github-footer py-6 mt-auto">
+            <div className="container mx-auto px-4">
+              <div className="flex flex-col md:flex-row justify-between items-center">
+                <div className="terminal-footer px-4 py-2 rounded-md mb-4 md:mb-0">
+                  © 2025 Om Prakash Mishra | Built with <span className="text-red-500">💻</span> + <span className="text-yellow-500">☕</span>
+                </div>
+                
+                <div className="flex space-x-4">
+                  <a href="https://github.com/OMPrakash9622" target="_blank" className="text-gray-400 hover:text-white" rel="noreferrer">
+                    <i className="fab fa-github text-xl"></i>
+                  </a>
+                  <a href="https://www.linkedin.com/in/om-prakash-mishra01" target="_blank" className="text-gray-400 hover:text-white" rel="noreferrer">
+                    <i className="fab fa-linkedin text-xl"></i>
+                  </a>
+                  <a href="mailto:omprakash.mishra025@gmail.com" className="text-gray-400 hover:text-white">
+                    <i className="fas fa-envelope text-xl"></i>
+                  </a>
+                </div>
+              </div>
+            </div>
+          </footer>
+          
+          {/* Scroll to Top Button */}
+          {showScrollTop && (
+            <button 
+              onClick={scrollToTop}
+              className="fixed bottom-6 right-6 w-12 h-12 rounded-full bg-blue-500 text-white flex items-center justify-center shadow-lg hover:bg-blue-600 transition"
+              aria-label="Scroll to top"
+            >
+              <i className="fas fa-arrow-up"></i>
+            </button>
+          )}
+        </div>
+      );
+    }
+
+    // Render the app
+    const rootElement = document.getElementById('root');
+    const root = ReactDOM.createRoot(rootElement);
+    root.render(<App />);
+  </script>
+</body>
+</html>
