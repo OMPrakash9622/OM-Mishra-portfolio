@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<link rel="icon" href="/om mishra.jpg" type="image/jpg">
+<link rel="icon" href="/ommMishra.jpg" type="image/jpg">
 
 <!-- Title -->
 <title>Om Prakash Mishra | Software Developer, Web Developer & Java Specialist</title>
@@ -22,17 +22,17 @@
 
 <!-- Open Graph / Facebook -->
 <meta property="og:type" content="website">
-<meta property="og:url" content="https://om-mishra-mishra-portfolio.vercel.app/">
+<meta property="og:url" content="https://ommprakashme.vercel.app/">
 <meta property="og:title" content="Om Prakash Mishra | Software Developer, Web Developer & Java Specialist">
 <meta property="og:description" content="Portfolio of Om Prakash Mishra — showcasing React + TailwindCSS GitHub-themed UI, weather API widget, animated design, SEO-optimized performance, and top-level projects.">
-<meta property="og:image" content="https://om-mishra-mishra-portfolio.vercel.app/preview-image.jpg">
+<meta property="og:image" content="https://ommprakashme.vercel.app/preview-image.jpg">
 
 <!-- Twitter -->
 <meta name="twitter:card" content="summary_large_image">
-<meta name="twitter:url" content="https://om-mishra-mishra-portfolio.vercel.app/">
+<meta name="twitter:url" content="https://ommprakashme.vercel.app/">
 <meta name="twitter:title" content="Om Prakash Mishra | Software Developer, Web Developer & Java Specialist">
 <meta name="twitter:description" content="Explore my interactive GitHub-themed portfolio with cutting-edge design, weather API integration, advanced animations, and full responsiveness.">
-<meta name="twitter:image" content="https://om-mishra-mishra-portfolio.vercel.app/preview-image.jpg">
+<meta name="twitter:image" content="https://ommprakashme.vercel.app/preview-image.jpg">
 
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
@@ -407,284 +407,73 @@
       color: #fbbf24;
     }
     
-    /* Samsung-style Weather Widget */
-    .oneui-weather-widget {
+    /* Mobile Weather Widget */
+    .mobile-weather-widget {
       position: fixed;
-      top: 80px;
-      left: 50%;
-      transform: translateX(-50%);
-      background: rgba(255, 255, 255, 0.15);
-      backdrop-filter: blur(20px);
-      -webkit-backdrop-filter: blur(20px);
-      border-radius: 24px;
-      padding: 10px 20px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+      top: 60px;
+      left: 0;
+      right: 0;
       z-index: 90;
-      display: flex;
-      align-items: center;
-      gap: 16px;
-      transition: all 0.3s ease;
-      max-width: 90%;
-      color: white;
-      font-family: 'SamsungOne', -apple-system, BlinkMacSystemFont, sans-serif;
-    }
-
-    .oneui-weather-widget.hidden {
-      transform: translateX(-50%) translateY(-100px);
-      opacity: 0;
-      pointer-events: none;
-    }
-
-    .oneui-weather-nav-integrated {
-      position: relative;
-      display: flex;
-      align-items: center;
-      margin-left: auto;
-      padding: 0 10px;
-    }
-
-    .oneui-weather-nav-content {
-      display: flex;
-      align-items: center;
-      gap: 6px;
-      background: rgba(255, 255, 255, 0.1);
-      backdrop-filter: blur(5px);
-      border-radius: 20px;
-      padding: 5px 10px;
-      border: 1px solid rgba(255, 255, 255, 0.1);
-    }
-
-    .oneui-weather-nav-icon {
-      font-size: 1rem;
-      width: 24px;
-      height: 24px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .oneui-weather-nav-temp {
-      font-size: 0.9rem;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    .oneui-weather-widget:hover {
-      transform: translateX(-50%) translateY(-5px);
-      box-shadow: 0 12px 40px rgba(0, 0, 0, 0.15);
-    }
-
-    .oneui-weather-icon-container {
-      position: relative;
-      width: 64px;
-      height: 64px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-    }
-
-    .oneui-weather-icon {
-      font-size: 3rem;
-      transition: all 0.5s ease;
-      z-index: 2;
-      filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-    }
-
-    /* One UI specific weather animations */
-    .oneui-sunny {
-      color: #FFC107;
-      animation: oneui-sunRotate 60s linear infinite;
-    }
-
-    .oneui-cloudy {
-      color: #E0E0E0;
-      animation: oneui-cloudFloat 8s ease-in-out infinite;
-    }
-
-    .oneui-rainy {
-      color: #64B5F6;
-      animation: oneui-rainBounce 3s ease-in-out infinite;
-    }
-
-    .oneui-thunderstorm {
-      color: #9FA8DA;
-      animation: oneui-lightning 8s infinite;
-    }
-
-    .oneui-snow {
-      color: #E0F7FA;
-      animation: oneui-snowFloat 6s ease-in-out infinite;
-    }
-
-    .oneui-fog {
-      color: #B0BEC5;
-      animation: oneui-fogPulse 10s ease-in-out infinite;
-    }
-
-    .oneui-partly-cloudy {
-      color: #BDBDBD;
-      animation: oneui-cloudSunFloat 10s ease-in-out infinite;
-    }
-
-    .oneui-weather-bg {
-      position: absolute;
       width: 100%;
-      height: 100%;
-      border-radius: 50%;
-      z-index: 1;
-      opacity: 0.2;
-    }
-
-    .oneui-sunny-bg {
-      background: radial-gradient(circle, rgba(255, 193, 7, 0.3) 0%, transparent 70%);
-      animation: oneui-sunPulse 4s infinite alternate;
-    }
-
-    .oneui-cloudy-bg {
-      background: radial-gradient(circle, rgba(224, 224, 224, 0.2) 0%, transparent 70%);
-    }
-
-    .oneui-rainy-bg {
-      background: radial-gradient(circle, rgba(100, 181, 246, 0.2) 0%, transparent 70%);
-    }
-
-    .oneui-thunderstorm-bg {
-      background: radial-gradient(circle, rgba(159, 168, 218, 0.2) 0%, transparent 70%);
-    }
-
-    .oneui-snow-bg {
-      background: radial-gradient(circle, rgba(224, 247, 250, 0.2) 0%, transparent 70%);
-    }
-
-    .oneui-fog-bg {
-      background: radial-gradient(circle, rgba(176, 190, 197, 0.2) 0%, transparent 70%);
-    }
-
-    .oneui-partly-cloudy-bg {
-      background: radial-gradient(circle, rgba(189, 189, 189, 0.2) 0%, transparent 70%);
-    }
-
-    /* One UI specific animations */
-    @keyframes oneui-sunRotate {
-      from { transform: rotate(0deg); }
-      to { transform: rotate(360deg); }
-    }
-
-    @keyframes oneui-sunPulse {
-      0% { transform: scale(1); opacity: 0.2; }
-      50% { transform: scale(1.1); opacity: 0.3; }
-      100% { transform: scale(1); opacity: 0.2; }
-    }
-
-    @keyframes oneui-cloudFloat {
-      0%, 100% { transform: translateY(0) translateX(0); }
-      50% { transform: translateY(-5px) translateX(5px); }
-    }
-
-    @keyframes oneui-cloudSunFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-3px) rotate(2deg); }
-      50% { transform: translateY(0) rotate(0deg); }
-      75% { transform: translateY(-3px) rotate(-2deg); }
-    }
-
-    @keyframes oneui-rainBounce {
-      0%, 100% { transform: translateY(0); }
-      50% { transform: translateY(-4px); }
-    }
-
-    @keyframes oneui-lightning {
-      0%, 70%, 100% { opacity: 0.8; }
-      75%, 85% { opacity: 1; }
-    }
-
-    @keyframes oneui-snowFloat {
-      0%, 100% { transform: translateY(0) rotate(0deg); }
-      25% { transform: translateY(-4px) rotate(5deg); }
-      50% { transform: translateY(0) rotate(0deg); }
-      75% { transform: translateY(-4px) rotate(-5deg); }
-    }
-
-    @keyframes oneui-fogPulse {
-      0%, 100% { opacity: 0.2; }
-      50% { opacity: 0.3; }
-    }
-
-    .oneui-weather-info {
+      padding: 10px 15px;
+      background: rgba(15, 23, 42, 0.9);
+      backdrop-filter: blur(10px);
+      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
       display: flex;
-      flex-direction: column;
-      min-width: 120px;
+      justify-content: space-between;
+      align-items: center;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+      transition: all 0.3s ease;
     }
-
-    .oneui-weather-temp {
-      font-size: 24px;
-      font-weight: 700;
-      line-height: 1.2;
+    
+    .mobile-weather-left {
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-
-    .oneui-weather-location {
-      font-size: 14px;
-      font-weight: 500;
-      opacity: 0.9;
+    
+    .mobile-weather-icon {
+      font-size: 1.5rem;
+      width: 40px;
+      height: 40px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border-radius: 50%;
+      background: rgba(255, 255, 255, 0.1);
+    }
+    
+    .mobile-weather-temp {
+      font-size: 1.2rem;
+      font-weight: 600;
+    }
+    
+    .mobile-weather-location {
+      font-size: 0.9rem;
+      opacity: 0.8;
       white-space: nowrap;
       overflow: hidden;
       text-overflow: ellipsis;
-      max-width: 150px;
+      max-width: 120px;
     }
-
-    .oneui-weather-time {
-      font-size: 14px;
-      font-weight: 400;
-      opacity: 0.8;
-      margin-left: 16px;
-      white-space: nowrap;
-    }
-
-    .oneui-weather-additional {
+    
+    .mobile-weather-right {
       display: flex;
       align-items: center;
-      gap: 8px;
-      font-size: 12px;
-      margin-top: 4px;
+      gap: 15px;
     }
-
-    .oneui-weather-humidity,
-    .oneui-weather-wind {
+    
+    .mobile-weather-detail {
       display: flex;
       align-items: center;
-      gap: 4px;
-      opacity: 0.8;
+      gap: 5px;
+      font-size: 0.8rem;
     }
-
-    /* Loading state */
-    .oneui-weather-loading {
-      display: flex;
-      align-items: center;
-      gap: 12px;
+    
+    .mobile-weather-detail i {
+      font-size: 0.9rem;
     }
-
-    .oneui-weather-loading-spinner {
-      width: 24px;
-      height: 24px;
-      border: 3px solid rgba(255, 255, 255, 0.2);
-      border-top-color: white;
-      border-radius: 50%;
-      animation: oneui-spin 1s linear infinite;
-    }
-
-    @keyframes oneui-spin {
-      to { transform: rotate(360deg); }
-    }
-
-    /* Error state */
-    .oneui-weather-error {
-      display: flex;
-      align-items: center;
-      gap: 8px;
-      color: #FF6B6B;
-    }
-
+    
     /* Resume section */
     .resume-card {
       background: linear-gradient(145deg, rgba(30,41,59,0.9) 0%, rgba(15,23,42,0.95) 100%);
@@ -831,98 +620,8 @@
       background: linear-gradient(to left, var(--github-bg), transparent);
     }
     
-    /* Mobile Weather Widget */
-    .mobile-weather-widget {
-      position: sticky;
-      top: 60px;
-      z-index: 80;
-      width: 100%;
-      padding: 10px 15px;
-      background: rgba(15, 23, 42, 0.9);
-      backdrop-filter: blur(10px);
-      border-bottom: 1px solid rgba(255, 255, 255, 0.1);
-      display: flex;
-      justify-content: space-between;
-      align-items: center;
-      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-      transition: all 0.3s ease;
-    }
-    
-    .mobile-weather-left {
-      display: flex;
-      align-items: center;
-      gap: 10px;
-    }
-    
-    .mobile-weather-icon {
-      font-size: 1.5rem;
-      width: 40px;
-      height: 40px;
-      display: flex;
-      align-items: center;
-      justify-content: center;
-      border-radius: 50%;
-      background: rgba(255, 255, 255, 0.1);
-    }
-    
-    .mobile-weather-temp {
-      font-size: 1.2rem;
-      font-weight: 600;
-    }
-    
-    .mobile-weather-location {
-      font-size: 0.9rem;
-      opacity: 0.8;
-      white-space: nowrap;
-      overflow: hidden;
-      text-overflow: ellipsis;
-      max-width: 120px;
-    }
-    
-    .mobile-weather-right {
-      display: flex;
-      align-items: center;
-      gap: 15px;
-    }
-    
-    .mobile-weather-detail {
-      display: flex;
-      align-items: center;
-      gap: 5px;
-      font-size: 0.8rem;
-    }
-    
-    .mobile-weather-detail i {
-      font-size: 0.9rem;
-    }
-    
     /* Responsive adjustments */
     @media (max-width: 1024px) {
-      .oneui-weather-widget {
-        top: 80px;
-        padding: 14px 20px;
-      }
-      
-      .oneui-weather-icon-container {
-        width: 56px;
-        height: 56px;
-      }
-      
-      .oneui-weather-icon {
-        font-size: 2.5rem;
-      }
-      
-      .oneui-weather-temp {
-        font-size: 22px;
-      }
-      
-      .oneui-weather-location {
-        font-size: 13px;
-        max-width: 130px;
-      }
-    }
-    
-    @media (max-width: 768px) {
       .github-tabs {
         overflow-x: auto;
         white-space: nowrap;
@@ -951,33 +650,6 @@
         font-size: 2.5rem;
       }
       
-      .oneui-weather-widget {
-        display: none;
-      }
-      
-      .oneui-weather-icon-container {
-        width: 48px;
-        height: 48px;
-      }
-      
-      .oneui-weather-icon {
-        font-size: 2rem;
-      }
-      
-      .oneui-weather-temp {
-        font-size: 20px;
-      }
-      
-      .oneui-weather-location {
-        font-size: 12px;
-        max-width: 100px;
-      }
-      
-      .oneui-weather-time {
-        font-size: 12px;
-        margin-left: 8px;
-      }
-
       .testimonial-grid {
         grid-template-columns: 1fr;
       }
@@ -1021,7 +693,7 @@
       }
     }
     
-    @media (max-width: 480px) {
+    @media (max-width: 768px) {
       .github-header {
         padding: 0.5rem;
         display: flex;
@@ -1030,7 +702,6 @@
       
       .github-tabs {
         max-width: 100%;
-        display: none;
       }
       
       .hero-text h1 {
@@ -1044,38 +715,6 @@
       .terminal {
         width: 100%;
         max-width: 100%;
-      }
-      
-      .mobile-weather-widget {
-        top: 56px;
-        padding: 8px 12px;
-      }
-      
-      .mobile-weather-icon {
-        font-size: 1.2rem;
-        width: 36px;
-        height: 36px;
-      }
-      
-      .mobile-weather-temp {
-        font-size: 1rem;
-      }
-      
-      .mobile-weather-location {
-        font-size: 0.8rem;
-        max-width: 100px;
-      }
-      
-      .mobile-weather-right {
-        gap: 10px;
-      }
-      
-      .mobile-weather-detail {
-        font-size: 0.7rem;
-      }
-      
-      .mobile-weather-detail i {
-        font-size: 0.8rem;
       }
       
       .testimonial-card {
@@ -1284,7 +923,7 @@
       });
     }
 
-    // Samsung-style Weather Widget Component with accurate location handling
+    // Weather Widget Component with accurate location handling
     function WeatherWidget() {
       const [weather, setWeather] = React.useState({
         temp: '--°',
@@ -1302,23 +941,9 @@
       const [error, setError] = React.useState(null);
       const [visible, setVisible] = React.useState(true);
       const [lastScrollY, setLastScrollY] = React.useState(0);
-      const [isMobile, setIsMobile] = React.useState(false);
-
-      // Check if device is mobile
+      
+      // Handle scroll behavior
       React.useEffect(() => {
-        const checkIfMobile = () => {
-          setIsMobile(window.innerWidth <= 768);
-        };
-
-        checkIfMobile();
-        window.addEventListener('resize', checkIfMobile);
-        return () => window.removeEventListener('resize', checkIfMobile);
-      }, []);
-
-      // Handle scroll behavior for desktop
-      React.useEffect(() => {
-        if (isMobile) return;
-
         const handleScroll = () => {
           const currentScrollY = window.scrollY;
 
@@ -1333,7 +958,7 @@
 
         window.addEventListener('scroll', handleScroll, { passive: true });
         return () => window.removeEventListener('scroll', handleScroll);
-      }, [lastScrollY, isMobile]);
+      }, [lastScrollY]);
 
       // Format time
       const formatTime = (date) => {
@@ -1534,91 +1159,40 @@
       const getWeatherIcon = () => {
         switch (weather.condition) {
           case 'sunny':
-            return <i className="fas fa-sun oneui-weather-icon oneui-sunny"></i>;
+            return <i className="fas fa-sun"></i>;
           case 'cloudy':
-            return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
+            return <i className="fas fa-cloud"></i>;
           case 'rainy':
-            return <i className="fas fa-cloud-rain oneui-weather-icon oneui-rainy"></i>;
+            return <i className="fas fa-cloud-rain"></i>;
           case 'partly-cloudy':
-            return <i className="fas fa-cloud-sun oneui-weather-icon oneui-partly-cloudy"></i>;
+            return <i className="fas fa-cloud-sun"></i>;
           case 'thunderstorm':
-            return <i className="fas fa-bolt oneui-weather-icon oneui-thunderstorm"></i>;
+            return <i className="fas fa-bolt"></i>;
           case 'snow':
-            return <i className="far fa-snowflake oneui-weather-icon oneui-snow"></i>;
+            return <i className="far fa-snowflake"></i>;
           case 'fog':
-            return <i className="fas fa-smog oneui-weather-icon oneui-fog"></i>;
+            return <i className="fas fa-smog"></i>;
           case 'error':
-            return <i className="fas fa-exclamation-triangle oneui-weather-icon" style={{ color: '#FF6B6B' }}></i>;
+            return <i className="fas fa-exclamation-triangle" style={{ color: '#FF6B6B' }}></i>;
           case 'loading':
             return <div className="oneui-weather-loading-spinner"></div>;
           default:
-            return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
+            return <i className="fas fa-cloud"></i>;
         }
       };
-
-      // Weather background class
-      const getWeatherBgClass = () => {
-        switch (weather.condition) {
-          case 'sunny':
-            return 'oneui-sunny-bg';
-          case 'cloudy':
-            return 'oneui-cloudy-bg';
-          case 'partly-cloudy':
-            return 'oneui-partly-cloudy-bg';
-          case 'rainy':
-            return 'oneui-rainy-bg';
-          case 'thunderstorm':
-            return 'oneui-thunderstorm-bg';
-          case 'snow':
-            return 'oneui-snow-bg';
-          case 'fog':
-            return 'oneui-fog-bg';
-          default:
-            return '';
-        }
-      };
-
-      // Mobile layout
-      if (isMobile) {
-        return (
-          <div className="mobile-weather-widget">
-            <div className="mobile-weather-left">
-              <div className="mobile-weather-icon">
-                {getWeatherIcon()}
-              </div>
-              <div>
-                <div className="mobile-weather-temp">{weather.temp}</div>
-                <div className="mobile-weather-location" title={weather.city}>
-                  {weather.city.split(',')[0]} {/* Show only city name on mobile */}
-                </div>
-              </div>
-            </div>
-
-            <div className="mobile-weather-right">
-              <div className="mobile-weather-detail">
-                <i className="fas fa-tint"></i>
-                <span>{weather.humidity}</span>
-              </div>
-              <div className="mobile-weather-detail">
-                <i className="fas fa-wind"></i>
-                <span>{weather.wind}</span>
-              </div>
-              <div className="mobile-weather-detail">
-                <i className="fas fa-clock"></i>
-                <span>{weather.time}</span>
-              </div>
-            </div>
-          </div>
-        );
-      }
 
       // Loading state
       if (loading) {
         return (
-          <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
-            <div className="oneui-weather-loading">
-              <div className="oneui-weather-loading-spinner"></div>
-              <div>Loading weather...</div>
+          <div className={`mobile-weather-widget ${visible ? '' : 'hidden'}`}>
+            <div className="mobile-weather-left">
+              <div className="mobile-weather-icon">
+                <div className="oneui-weather-loading-spinner"></div>
+              </div>
+              <div>
+                <div className="mobile-weather-temp">--°</div>
+                <div className="mobile-weather-location">Loading weather...</div>
+              </div>
             </div>
           </div>
         );
@@ -1627,10 +1201,15 @@
       // Error state
       if (error) {
         return (
-          <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
-            <div className="oneui-weather-error">
-              <i className="fas fa-exclamation-circle"></i>
-              <div>{error}</div>
+          <div className={`mobile-weather-widget ${visible ? '' : 'hidden'}`}>
+            <div className="mobile-weather-left">
+              <div className="mobile-weather-icon text-red-500">
+                <i className="fas fa-exclamation-circle"></i>
+              </div>
+              <div>
+                <div className="mobile-weather-temp">--°</div>
+                <div className="mobile-weather-location">{error}</div>
+              </div>
             </div>
           </div>
         );
@@ -1638,47 +1217,32 @@
 
       // Desktop layout
       return (
-        <div className={`oneui-weather-widget ${visible ? '' : 'hidden'} ${getWeatherBgClass()}`} 
-             style={{ 
-               top: '80px',
-               zIndex: 90, // Ensure it stays above other elements
-               transform: visible ? 'translateX(-50%)' : 'translateX(-50%) translateY(-100px)'
-             }}>
-          <div className="oneui-weather-icon-container">
-            {getWeatherIcon()}
-          </div>
-
-          <div className="oneui-weather-info">
-            <div className="oneui-weather-temp">{weather.temp}</div>
-            <div className="oneui-weather-location" title={weather.city}>
-              {weather.city.includes(',') ? (
-                <>
-                  <span className="oneui-city-main">{weather.city.split(',')[0]}</span>
-                  <span className="oneui-city-region">{weather.city.split(',').slice(1).join(',').trim()}</span>
-                </>
-              ) : (
-                weather.city
-              )}
+        <div className={`mobile-weather-widget ${visible ? '' : 'hidden'}`}>
+          <div className="mobile-weather-left">
+            <div className="mobile-weather-icon">
+              {getWeatherIcon()}
             </div>
-            <div className="oneui-weather-additional">
-              <div className="oneui-weather-humidity">
-                <i className="fas fa-tint"></i>
-                <span>{weather.humidity}</span>
-              </div>
-              <div className="oneui-weather-wind">
-                <i className="fas fa-wind"></i>
-                <span>{weather.wind}</span>
-              </div>
-              <div className="oneui-weather-feels-like">
-                <i className="fas fa-temperature-low"></i>
-                <span>{weather.feelsLike}</span>
+            <div>
+              <div className="mobile-weather-temp">{weather.temp}</div>
+              <div className="mobile-weather-location" title={weather.city}>
+                {weather.city.split(',')[0]}
               </div>
             </div>
           </div>
 
-          <div className="oneui-weather-time">
-            <i className="fas fa-clock"></i>
-            <span>{weather.time}</span>
+          <div className="mobile-weather-right">
+            <div className="mobile-weather-detail">
+              <i className="fas fa-tint"></i>
+              <span>{weather.humidity}</span>
+            </div>
+            <div className="mobile-weather-detail">
+              <i className="fas fa-wind"></i>
+              <span>{weather.wind}</span>
+            </div>
+            <div className="mobile-weather-detail">
+              <i className="fas fa-clock"></i>
+              <span>{weather.time}</span>
+            </div>
           </div>
         </div>
       );
@@ -2127,13 +1691,13 @@
       const roles = [
         "Java Developer",
         "Web Developer",
-        "Software Developer",
+        "S/W Developer",
         "Video Editor"
       ];
       
       const projects = [
         {
-          title: "Weather Application",
+          title: "Weather Web Application",
           tech: "JavaScript + Weather API",
           description: "Dynamic weather application that provides real-time weather data and forecasts based on user location using third-party API.",
           tags: ["JavaScript", "API", "Web"],
