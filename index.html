@@ -2,9 +2,38 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <link rel="icon" href="/op-logo.jpg" type="image/jpg">
-  <title>Om Prakash Mishra | Portfolio</title>
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<link rel="icon" href="/om mishra.jpg" type="image/jpg">
+
+<!-- Title -->
+<title>Om Prakash Mishra | Software Developer, Web Developer & Java Specialist</title>
+
+<!-- Primary SEO Meta Tags -->
+<meta name="title" content="Om Prakash Mishra | Software Developer, Web Developer & Java Specialist">
+<meta name="description" content="Official portfolio of Om Prakash Mishra — showcasing skills in software development, web design, Java programming, and modern technologies like React, TailwindCSS, and MySQL. Explore my projects, including ATM Simulation System and Spotify Clone, in an interactive GitHub-themed UI.">
+
+<!-- Keywords -->
+<meta name="keywords" content="Om Prakash Mishra, software developer, java developer, web developer, react developer, portfolio website, tailwindcss, html css javascript, mysql developer, atm simulation system, spotify clone, github themed portfolio, responsive website, front end developer, back end developer">
+
+<!-- Robots -->
+<meta name="robots" content="index, follow">
+<meta name="googlebot" content="index, follow">
+<meta name="bingbot" content="index, follow">
+
+<!-- Open Graph / Facebook -->
+<meta property="og:type" content="website">
+<meta property="og:url" content="https://om-mishra-mishra-portfolio.vercel.app/">
+<meta property="og:title" content="Om Prakash Mishra | Software Developer, Web Developer & Java Specialist">
+<meta property="og:description" content="Portfolio of Om Prakash Mishra — showcasing React + TailwindCSS GitHub-themed UI, weather API widget, animated design, SEO-optimized performance, and top-level projects.">
+<meta property="og:image" content="https://om-mishra-mishra-portfolio.vercel.app/preview-image.jpg">
+
+<!-- Twitter -->
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:url" content="https://om-mishra-mishra-portfolio.vercel.app/">
+<meta name="twitter:title" content="Om Prakash Mishra | Software Developer, Web Developer & Java Specialist">
+<meta name="twitter:description" content="Explore my interactive GitHub-themed portfolio with cutting-edge design, weather API integration, advanced animations, and full responsiveness.">
+<meta name="twitter:image" content="https://om-mishra-mishra-portfolio.vercel.app/preview-image.jpg">
+
   <script src="https://cdn.tailwindcss.com"></script>
   <script src="https://unpkg.com/react@18/umd/react.development.js"></script>
   <script src="https://unpkg.com/react-dom@18/umd/react-dom.development.js"></script>
@@ -54,6 +83,7 @@
     .github-header {
       border-bottom: 1px solid var(--github-border);
       background-color: var(--github-bg);
+      z-index: 100;
     }
     
     .github-tab {
@@ -380,7 +410,7 @@
     /* Samsung-style Weather Widget */
     .oneui-weather-widget {
       position: fixed;
-      top: 79px;
+      top: 80px;
       left: 50%;
       transform: translateX(-50%);
       background: rgba(255, 255, 255, 0.15);
@@ -1254,362 +1284,366 @@
       });
     }
 
-// Samsung-style Weather Widget Component with accurate location handling
-function WeatherWidget() {
-  const [weather, setWeather] = React.useState({
-    temp: '--°',
-    condition: 'loading',
-    location: 'Loading...',
-    time: '--:--',
-    city: 'Current Location',
-    humidity: '--%',
-    wind: '-- km/h',
-    feelsLike: '--°'
-  });
-
-  const [permissionGranted, setPermissionGranted] = React.useState(false);
-  const [loading, setLoading] = React.useState(true);
-  const [error, setError] = React.useState(null);
-  const [visible, setVisible] = React.useState(true);
-  const [lastScrollY, setLastScrollY] = React.useState(0);
-  const [isMobile, setIsMobile] = React.useState(false);
-
-  // Check if device is mobile
-  React.useEffect(() => {
-    const checkIfMobile = () => {
-      setIsMobile(window.innerWidth <= 768);
-    };
-
-    checkIfMobile();
-    window.addEventListener('resize', checkIfMobile);
-    return () => window.removeEventListener('resize', checkIfMobile);
-  }, []);
-
-  // Handle scroll behavior for desktop
-  React.useEffect(() => {
-    if (isMobile) return;
-
-    const handleScroll = () => {
-      const currentScrollY = window.scrollY;
-
-      if (currentScrollY > lastScrollY && currentScrollY > 100) {
-        setVisible(false);
-      } else if (currentScrollY < lastScrollY) {
-        setVisible(true);
-      }
-
-      setLastScrollY(currentScrollY);
-    };
-
-    window.addEventListener('scroll', handleScroll, { passive: true });
-    return () => window.removeEventListener('scroll', handleScroll);
-  }, [lastScrollY, isMobile]);
-
-  // Format time
-  const formatTime = (date) => {
-    return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-  };
-
-  // Update time every minute
-  React.useEffect(() => {
-    const updateTime = () => {
-      setWeather(prev => ({
-        ...prev,
-        time: formatTime(new Date())
-      }));
-    };
-
-    updateTime();
-    const timer = setInterval(updateTime, 60000);
-    return () => clearInterval(timer);
-  }, []);
-
-  // Improved city name extraction
-  const extractCityName = (address) => {
-    if (!address) return 'Current Location';
-
-    // Priority order for location names
-    const locationPriority = [
-      'city', 'town', 'village', 'locality', 'suburb',
-      'neighbourhood', 'county', 'state_district', 'state', 'country'
-    ];
-
-    // Try to get city name first, then fallback to other options
-    for (const type of locationPriority) {
-      if (address[type]) {
-        // For Indian cities, we want to show city name with state
-        if (['city', 'town', 'village', 'locality', 'suburb'].includes(type)) {
-          if (address.state && !address.state.includes('India')) {
-            return `${address[type]}, ${address.state}`;
-          }
-          return address[type];
-        }
-        return address[type];
-      }
-    }
-
-    return 'Current Location';
-  };
-
-  // Fetch weather data with fallback options
-  const fetchWeatherWithLocation = async (lat, lon) => {
-    try {
-      const apiKey = '40e93ab6528b5687db0a885d2942d4c4';
-      let cityName = 'Current Location';
-
-      // First try with OpenStreetMap Nominatim
-      try {
-        const locationResponse = await fetch(
-          `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&zoom=18`
-        );
-
-        if (locationResponse.ok) {
-          const locationData = await locationResponse.json();
-          cityName = extractCityName(locationData.address);
-          
-          // If we didn't get a good city name, try with different zoom level
-          if (cityName === 'Current Location') {
-            const fallbackResponse = await fetch(
-              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&zoom=10`
-            );
-            if (fallbackResponse.ok) {
-              const fallbackData = await fallbackResponse.json();
-              cityName = extractCityName(fallbackData.address);
-            }
-          }
-        }
-      } catch (geoError) {
-        console.error('Nominatim error:', geoError);
-      }
-
-      // Fallback to OpenWeatherMap's city name if Nominatim fails
-      if (cityName === 'Current Location') {
-        const weatherResponse = await fetch(
-          `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-        );
-        
-        if (weatherResponse.ok) {
-          const weatherData = await weatherResponse.json();
-          if (weatherData.name) {
-            cityName = weatherData.name;
-          }
-        }
-      }
-
-      // Final weather data fetch
-      const finalWeatherResponse = await fetch(
-        `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
-      );
-
-      if (!finalWeatherResponse.ok) {
-        throw new Error('Weather data not available');
-      }
-
-      const weatherData = await finalWeatherResponse.json();
-
-      // Determine weather condition
-      const weatherId = weatherData.weather[0].id;
-      let condition = 'sunny';
-
-      if (weatherId >= 200 && weatherId < 300) condition = 'thunderstorm';
-      else if (weatherId >= 300 && weatherId < 600) condition = 'rainy';
-      else if (weatherId >= 600 && weatherId < 700) condition = 'snow';
-      else if (weatherId >= 700 && weatherId < 800) condition = 'fog';
-      else if (weatherId === 800) condition = 'sunny';
-      else if (weatherId > 800) condition = weatherData.weather[0].icon.includes('d') ? 'partly-cloudy' : 'cloudy';
-
-      // Update state with accurate data
-      setWeather({
-        temp: `${Math.round(weatherData.main.temp)}°`,
-        condition,
-        location: cityName,
-        time: formatTime(new Date()),
-        city: cityName,
-        humidity: `${weatherData.main.humidity}%`,
-        wind: `${Math.round(weatherData.wind.speed * 3.6)} km/h`,
-        feelsLike: `${Math.round(weatherData.main.feels_like)}°`
+    // Samsung-style Weather Widget Component with accurate location handling
+    function WeatherWidget() {
+      const [weather, setWeather] = React.useState({
+        temp: '--°',
+        condition: 'loading',
+        location: 'Loading...',
+        time: '--:--',
+        city: 'Current Location',
+        humidity: '--%',
+        wind: '-- km/h',
+        feelsLike: '--°'
       });
 
-      setPermissionGranted(true);
-      setLoading(false);
-      setError(null);
-    } catch (error) {
-      console.error('Error fetching weather:', error);
-      setError('Weather data unavailable');
-      setLoading(false);
-      
-      // Set default city name if all else fails
-      setWeather(prev => ({
-        ...prev,
-        city: 'Current Location'
-      }));
-    }
-  };
+      const [permissionGranted, setPermissionGranted] = React.useState(false);
+      const [loading, setLoading] = React.useState(true);
+      const [error, setError] = React.useState(null);
+      const [visible, setVisible] = React.useState(true);
+      const [lastScrollY, setLastScrollY] = React.useState(0);
+      const [isMobile, setIsMobile] = React.useState(false);
 
-  // Get user location and fetch weather
-  React.useEffect(() => {
-    const fetchWeather = async () => {
-      if (navigator.geolocation) {
-        navigator.geolocation.getCurrentPosition(
-          async (position) => {
-            const { latitude, longitude } = position.coords;
-            await fetchWeatherWithLocation(latitude, longitude);
-          },
-          async (error) => {
-            console.error('Geolocation error:', error);
+      // Check if device is mobile
+      React.useEffect(() => {
+        const checkIfMobile = () => {
+          setIsMobile(window.innerWidth <= 768);
+        };
+
+        checkIfMobile();
+        window.addEventListener('resize', checkIfMobile);
+        return () => window.removeEventListener('resize', checkIfMobile);
+      }, []);
+
+      // Handle scroll behavior for desktop
+      React.useEffect(() => {
+        if (isMobile) return;
+
+        const handleScroll = () => {
+          const currentScrollY = window.scrollY;
+
+          if (currentScrollY > lastScrollY && currentScrollY > 100) {
+            setVisible(false);
+          } else if (currentScrollY < lastScrollY) {
+            setVisible(true);
+          }
+
+          setLastScrollY(currentScrollY);
+        };
+
+        window.addEventListener('scroll', handleScroll, { passive: true });
+        return () => window.removeEventListener('scroll', handleScroll);
+      }, [lastScrollY, isMobile]);
+
+      // Format time
+      const formatTime = (date) => {
+        return date.toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+      };
+
+      // Update time every minute
+      React.useEffect(() => {
+        const updateTime = () => {
+          setWeather(prev => ({
+            ...prev,
+            time: formatTime(new Date())
+          }));
+        };
+
+        updateTime();
+        const timer = setInterval(updateTime, 60000);
+        return () => clearInterval(timer);
+      }, []);
+
+      // Improved city name extraction
+      const extractCityName = (address) => {
+        if (!address) return 'Current Location';
+
+        // Priority order for location names
+        const locationPriority = [
+          'city', 'town', 'village', 'locality', 'suburb',
+          'neighbourhood', 'county', 'state_district', 'state', 'country'
+        ];
+
+        // Try to get city name first, then fallback to other options
+        for (const type of locationPriority) {
+          if (address[type]) {
+            // For Indian cities, we want to show city name with state
+            if (['city', 'town', 'village', 'locality', 'suburb'].includes(type)) {
+              if (address.state && !address.state.includes('India')) {
+                return `${address[type]}, ${address.state}`;
+              }
+              return address[type];
+            }
+            return address[type];
+          }
+        }
+
+        return 'Current Location';
+      };
+
+      // Fetch weather data with fallback options
+      const fetchWeatherWithLocation = async (lat, lon) => {
+        try {
+          const apiKey = '40e93ab6528b5687db0a885d2942d4c4';
+          let cityName = 'Current Location';
+
+          // First try with OpenStreetMap Nominatim
+          try {
+            const locationResponse = await fetch(
+              `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&zoom=18`
+            );
+
+            if (locationResponse.ok) {
+              const locationData = await locationResponse.json();
+              cityName = extractCityName(locationData.address);
+              
+              // If we didn't get a good city name, try with different zoom level
+              if (cityName === 'Current Location') {
+                const fallbackResponse = await fetch(
+                  `https://nominatim.openstreetmap.org/reverse?format=json&lat=${lat}&lon=${lon}&addressdetails=1&zoom=10`
+                );
+                if (fallbackResponse.ok) {
+                  const fallbackData = await fallbackResponse.json();
+                  cityName = extractCityName(fallbackData.address);
+                }
+              }
+            }
+          } catch (geoError) {
+            console.error('Nominatim error:', geoError);
+          }
+
+          // Fallback to OpenWeatherMap's city name if Nominatim fails
+          if (cityName === 'Current Location') {
+            const weatherResponse = await fetch(
+              `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+            );
             
-            // Fallback to IP-based location if geolocation is denied
+            if (weatherResponse.ok) {
+              const weatherData = await weatherResponse.json();
+              if (weatherData.name) {
+                cityName = weatherData.name;
+              }
+            }
+          }
+
+          // Final weather data fetch
+          const finalWeatherResponse = await fetch(
+            `https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${apiKey}&units=metric`
+          );
+
+          if (!finalWeatherResponse.ok) {
+            throw new Error('Weather data not available');
+          }
+
+          const weatherData = await finalWeatherResponse.json();
+
+          // Determine weather condition
+          const weatherId = weatherData.weather[0].id;
+          let condition = 'sunny';
+
+          if (weatherId >= 200 && weatherId < 300) condition = 'thunderstorm';
+          else if (weatherId >= 300 && weatherId < 600) condition = 'rainy';
+          else if (weatherId >= 600 && weatherId < 700) condition = 'snow';
+          else if (weatherId >= 700 && weatherId < 800) condition = 'fog';
+          else if (weatherId === 800) condition = 'sunny';
+          else if (weatherId > 800) condition = weatherData.weather[0].icon.includes('d') ? 'partly-cloudy' : 'cloudy';
+
+          // Update state with accurate data
+          setWeather({
+            temp: `${Math.round(weatherData.main.temp)}°`,
+            condition,
+            location: cityName,
+            time: formatTime(new Date()),
+            city: cityName,
+            humidity: `${weatherData.main.humidity}%`,
+            wind: `${Math.round(weatherData.wind.speed * 3.6)} km/h`,
+            feelsLike: `${Math.round(weatherData.main.feels_like)}°`
+          });
+
+          setPermissionGranted(true);
+          setLoading(false);
+          setError(null);
+        } catch (error) {
+          console.error('Error fetching weather:', error);
+          setError('Weather data unavailable');
+          setLoading(false);
+          
+          // Set default city name if all else fails
+          setWeather(prev => ({
+            ...prev,
+            city: 'Current Location'
+          }));
+        }
+      };
+
+      // Get user location and fetch weather
+      React.useEffect(() => {
+        const fetchWeather = async () => {
+          if (navigator.geolocation) {
+            navigator.geolocation.getCurrentPosition(
+              async (position) => {
+                const { latitude, longitude } = position.coords;
+                await fetchWeatherWithLocation(latitude, longitude);
+              },
+              async (error) => {
+                console.error('Geolocation error:', error);
+                
+                // Fallback to IP-based location if geolocation is denied
+                try {
+                  const ipResponse = await fetch('https://ipapi.co/json/');
+                  if (ipResponse.ok) {
+                    const ipData = await ipResponse.json();
+                    await fetchWeatherWithLocation(ipData.latitude, ipData.longitude);
+                  } else {
+                    throw new Error('IP location failed');
+                  }
+                } catch (ipError) {
+                  console.error('IP location error:', ipError);
+                  setError('Location access denied');
+                  setLoading(false);
+                }
+              },
+              {
+                enableHighAccuracy: true,
+                timeout: 10000,
+                maximumAge: 0
+              }
+            );
+          } else {
+            // Fallback for browsers without geolocation
             try {
               const ipResponse = await fetch('https://ipapi.co/json/');
               if (ipResponse.ok) {
                 const ipData = await ipResponse.json();
                 await fetchWeatherWithLocation(ipData.latitude, ipData.longitude);
               } else {
-                throw new Error('IP location failed');
+                throw new Error('Geolocation not supported');
               }
-            } catch (ipError) {
-              console.error('IP location error:', ipError);
-              setError('Location access denied');
+            } catch (error) {
+              console.error('IP location error:', error);
+              setError('Location not available');
               setLoading(false);
             }
-          },
-          {
-            enableHighAccuracy: true,
-            timeout: 10000,
-            maximumAge: 0
           }
-        );
-      } else {
-        // Fallback for browsers without geolocation
-        try {
-          const ipResponse = await fetch('https://ipapi.co/json/');
-          if (ipResponse.ok) {
-            const ipData = await ipResponse.json();
-            await fetchWeatherWithLocation(ipData.latitude, ipData.longitude);
-          } else {
-            throw new Error('Geolocation not supported');
-          }
-        } catch (error) {
-          console.error('IP location error:', error);
-          setError('Location not available');
-          setLoading(false);
+        };
+
+        fetchWeather();
+      }, []);
+
+      // Weather icon component
+      const getWeatherIcon = () => {
+        switch (weather.condition) {
+          case 'sunny':
+            return <i className="fas fa-sun oneui-weather-icon oneui-sunny"></i>;
+          case 'cloudy':
+            return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
+          case 'rainy':
+            return <i className="fas fa-cloud-rain oneui-weather-icon oneui-rainy"></i>;
+          case 'partly-cloudy':
+            return <i className="fas fa-cloud-sun oneui-weather-icon oneui-partly-cloudy"></i>;
+          case 'thunderstorm':
+            return <i className="fas fa-bolt oneui-weather-icon oneui-thunderstorm"></i>;
+          case 'snow':
+            return <i className="far fa-snowflake oneui-weather-icon oneui-snow"></i>;
+          case 'fog':
+            return <i className="fas fa-smog oneui-weather-icon oneui-fog"></i>;
+          case 'error':
+            return <i className="fas fa-exclamation-triangle oneui-weather-icon" style={{ color: '#FF6B6B' }}></i>;
+          case 'loading':
+            return <div className="oneui-weather-loading-spinner"></div>;
+          default:
+            return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
         }
-      }
-    };
+      };
 
-    fetchWeather();
-  }, []);
+      // Weather background class
+      const getWeatherBgClass = () => {
+        switch (weather.condition) {
+          case 'sunny':
+            return 'oneui-sunny-bg';
+          case 'cloudy':
+            return 'oneui-cloudy-bg';
+          case 'partly-cloudy':
+            return 'oneui-partly-cloudy-bg';
+          case 'rainy':
+            return 'oneui-rainy-bg';
+          case 'thunderstorm':
+            return 'oneui-thunderstorm-bg';
+          case 'snow':
+            return 'oneui-snow-bg';
+          case 'fog':
+            return 'oneui-fog-bg';
+          default:
+            return '';
+        }
+      };
 
-  // Weather icon component
-  const getWeatherIcon = () => {
-    switch (weather.condition) {
-      case 'sunny':
-        return <i className="fas fa-sun oneui-weather-icon oneui-sunny"></i>;
-      case 'cloudy':
-        return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
-      case 'rainy':
-        return <i className="fas fa-cloud-rain oneui-weather-icon oneui-rainy"></i>;
-      case 'partly-cloudy':
-        return <i className="fas fa-cloud-sun oneui-weather-icon oneui-partly-cloudy"></i>;
-      case 'thunderstorm':
-        return <i className="fas fa-bolt oneui-weather-icon oneui-thunderstorm"></i>;
-      case 'snow':
-        return <i className="far fa-snowflake oneui-weather-icon oneui-snow"></i>;
-      case 'fog':
-        return <i className="fas fa-smog oneui-weather-icon oneui-fog"></i>;
-      case 'error':
-        return <i className="fas fa-exclamation-triangle oneui-weather-icon" style={{ color: '#FF6B6B' }}></i>;
-      case 'loading':
-        return <div className="oneui-weather-loading-spinner"></div>;
-      default:
-        return <i className="fas fa-cloud oneui-weather-icon oneui-cloudy"></i>;
-    }
-  };
+      // Mobile layout
+      if (isMobile) {
+        return (
+          <div className="mobile-weather-widget">
+            <div className="mobile-weather-left">
+              <div className="mobile-weather-icon">
+                {getWeatherIcon()}
+              </div>
+              <div>
+                <div className="mobile-weather-temp">{weather.temp}</div>
+                <div className="mobile-weather-location" title={weather.city}>
+                  {weather.city.split(',')[0]} {/* Show only city name on mobile */}
+                </div>
+              </div>
+            </div>
 
-  // Weather background class
-  const getWeatherBgClass = () => {
-    switch (weather.condition) {
-      case 'sunny':
-        return 'oneui-sunny-bg';
-      case 'cloudy':
-        return 'oneui-cloudy-bg';
-      case 'partly-cloudy':
-        return 'oneui-partly-cloudy-bg';
-      case 'rainy':
-        return 'oneui-rainy-bg';
-      case 'thunderstorm':
-        return 'oneui-thunderstorm-bg';
-      case 'snow':
-        return 'oneui-snow-bg';
-      case 'fog':
-        return 'oneui-fog-bg';
-      default:
-        return '';
-    }
-  };
-
-  // Mobile layout
-  if (isMobile) {
-    return (
-      <div className="mobile-weather-widget">
-        <div className="mobile-weather-left">
-          <div className="mobile-weather-icon">
-            {getWeatherIcon()}
-          </div>
-          <div>
-            <div className="mobile-weather-temp">{weather.temp}</div>
-            <div className="mobile-weather-location" title={weather.city}>
-              {weather.city.split(',')[0]} {/* Show only city name on mobile */}
+            <div className="mobile-weather-right">
+              <div className="mobile-weather-detail">
+                <i className="fas fa-tint"></i>
+                <span>{weather.humidity}</span>
+              </div>
+              <div className="mobile-weather-detail">
+                <i className="fas fa-wind"></i>
+                <span>{weather.wind}</span>
+              </div>
+              <div className="mobile-weather-detail">
+                <i className="fas fa-clock"></i>
+                <span>{weather.time}</span>
+              </div>
             </div>
           </div>
-        </div>
+        );
+      }
 
-        <div className="mobile-weather-right">
-          <div className="mobile-weather-detail">
-            <i className="fas fa-tint"></i>
-            <span>{weather.humidity}</span>
+      // Loading state
+      if (loading) {
+        return (
+          <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
+            <div className="oneui-weather-loading">
+              <div className="oneui-weather-loading-spinner"></div>
+              <div>Loading weather...</div>
+            </div>
           </div>
-          <div className="mobile-weather-detail">
-            <i className="fas fa-wind"></i>
-            <span>{weather.wind}</span>
+        );
+      }
+
+      // Error state
+      if (error) {
+        return (
+          <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
+            <div className="oneui-weather-error">
+              <i className="fas fa-exclamation-circle"></i>
+              <div>{error}</div>
+            </div>
           </div>
-          <div className="mobile-weather-detail">
-            <i className="fas fa-clock"></i>
-            <span>{weather.time}</span>
-          </div>
-        </div>
-      </div>
-    );
-  }
+        );
+      }
 
-  // Loading state
-  if (loading) {
-    return (
-      <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
-        <div className="oneui-weather-loading">
-          <div className="oneui-weather-loading-spinner"></div>
-          <div>Loading weather...</div>
-        </div>
-      </div>
-    );
-  }
-
-  // Error state
-  if (error) {
-    return (
-      <div className={`oneui-weather-widget ${visible ? '' : 'hidden'}`}>
-        <div className="oneui-weather-error">
-          <i className="fas fa-exclamation-circle"></i>
-          <div>{error}</div>
-        </div>
-      </div>
-    );
-  }
-
-  // Desktop layout
-  return (
-    <div className={`oneui-weather-widget ${visible ? '' : 'hidden'} ${getWeatherBgClass()}`} 
-             style={{ top: '80px' }}> {/* Changed from fixed to absolute positioning */}
+      // Desktop layout
+      return (
+        <div className={`oneui-weather-widget ${visible ? '' : 'hidden'} ${getWeatherBgClass()}`} 
+             style={{ 
+               top: '80px',
+               zIndex: 90, // Ensure it stays above other elements
+               transform: visible ? 'translateX(-50%)' : 'translateX(-50%) translateY(-100px)'
+             }}>
           <div className="oneui-weather-icon-container">
             {getWeatherIcon()}
           </div>
@@ -1649,7 +1683,6 @@ function WeatherWidget() {
         </div>
       );
     }
-
 
     // Testimonial Component
     function TestimonialSection() {
@@ -1707,7 +1740,7 @@ function WeatherWidget() {
       role: "Data Analytics, TCS",
       rating: 4,
       content:
-        "I have no doubt that Omprakash will be an asset to any team or organization he becomes part of. He is a future-ready software engineer with the mindset and skills required to thrive in today’s fast-evolving tech landscape",
+        "I have no doubt that Omprakash will be an asset to any team or organization he becomes part of. He is a future-ready software engineer with the mindset and skills required to thrive in today's fast-evolving tech landscape",
       image: "tanu.jpg",
     },
   ];
@@ -2133,7 +2166,7 @@ function WeatherWidget() {
           setShowScrollTop(window.scrollY > 300);
           
           // Update active tab based on scroll position
-          const sections = ['Home', 'About', 'Skills', 'Projects', 'Testimonials', 'Contact'];
+          const sections = ['home', 'about', 'skills', 'projects', 'testimonials', 'contact'];
           const scrollPosition = window.scrollY + 100;
           
           for (const section of sections) {
@@ -2220,7 +2253,10 @@ function WeatherWidget() {
       const scrollToSection = (sectionId) => {
         const element = document.getElementById(sectionId);
         if (element) {
-          element.scrollIntoView({ behavior: 'smooth' });
+          window.scrollTo({
+            top: element.offsetTop - 80, // Adjust for header height
+            behavior: 'smooth'
+          });
           setActiveTab(sectionId);
           setShowMobileMenu(false);
         }
@@ -2252,13 +2288,13 @@ function WeatherWidget() {
               
               {/* Desktop tabs */}
               <div className="hidden md:flex github-tabs space-x-1">
-                {['Home', 'About', 'Skills', 'Projects', 'Testimonials', 'Contact'].map((tab) => (
+                {['home', 'about', 'skills', 'projects', 'testimonials', 'contact'].map((tab) => (
                   <button
                     key={tab}
                     className={`github-tab ${activeTab === tab ? 'active' : ''}`}
                     onClick={() => scrollToSection(tab)}
                   >
-                    {tab}{tab === 'home' ? '' : tab === 'projects' ? '' : tab === 'contact' ? '' : ''}
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
                   </button>
                 ))}
               </div>
@@ -2276,13 +2312,13 @@ function WeatherWidget() {
             {/* Mobile menu */}
             {showMobileMenu && (
               <div className="mobile-menu md:hidden mt-4">
-                {['Home', 'About', 'Skills', 'Projects', 'Testimonials', 'Contact'].map((tab) => (
+                {['home', 'about', 'skills', 'projects', 'testimonials', 'contact'].map((tab) => (
                   <button
                     key={tab}
                     className={`github-tab w-full text-left ${activeTab === tab ? 'active' : ''}`}
                     onClick={() => scrollToSection(tab)}
                   >
-                    {tab}{tab === 'home' ? '' : tab === 'projects' ? '' : tab === 'contact' ? '' : ''}
+                    {tab.charAt(0).toUpperCase() + tab.slice(1)}
                   </button>
                 ))}
                 <button 
@@ -2295,7 +2331,7 @@ function WeatherWidget() {
             )}
           </header>
           
-          {/* Mobile Weather Widget - Now positioned below navbar */}
+          {/* Weather Widget */}
           <WeatherWidget />
           
           <main className="flex-grow">
@@ -2473,7 +2509,7 @@ function WeatherWidget() {
                         "Dynamic movie browsing platform with debounced search...",
                       tags: ["React", "API", "Tailwind"],
                       live: "https://weather-web-app-drab-three.vercel.app/",
-                      github: "https://github.com/Omm7/TrailerWave.git",
+                      github: "https://github.com/OMPrakash9622/weather_web_app.git",
                     },
                     {
                       title: "ATM Simulation System",
@@ -2482,7 +2518,7 @@ function WeatherWidget() {
                       description: "Simulates real-world ATM operations...",
                       tags: ["Java", "Swing", "Database"],
                       github:
-                        "https://github.com/Omm7/ATM_Simulation_System.git",
+                        "https://github.com",
                     },
                     {
                       title: "Responsive Music Player",
@@ -2491,7 +2527,7 @@ function WeatherWidget() {
                       description:
                         "A sleek music player UI built from scratch...",
                       tags: ["Web", "UI/UX", "JavaScript"],
-                      github: "https://github.com/Omm7/spotify_clone.git",
+                      github: "https://github.com",
                     },
                   ].map((project, index) => (
                     <div
